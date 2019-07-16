@@ -1,0 +1,2300 @@
+
+D:/ece243/Project/main.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+       0:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
+      10:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
+      20:	40 00 00 00 a0 15 00 00 a4 15 00 00 a8 15 00 00     @...............
+      30:	ac 15 00 00 9c 15 00 00 b0 15 00 00 b4 15 00 00     ................
+
+00000040 <__cs3_reset>:
+      40:	ea000026 	b	e0 <__cs3_start_asm_sim>
+
+00000044 <__cs3_start_c>:
+      44:	e59f608c 	ldr	r6, [pc, #140]	; d8 <__cs3_start_c+0x94>
+      48:	e3560000 	cmp	r6, #0
+      4c:	e92d4080 	push	{r7, lr}
+      50:	e2466001 	sub	r6, r6, #1
+      54:	0a00001e 	beq	d4 <__cs3_start_c+0x90>
+      58:	e59f507c 	ldr	r5, [pc, #124]	; dc <__cs3_start_c+0x98>
+      5c:	e3a00000 	mov	r0, #0
+      60:	e3a01000 	mov	r1, #0
+      64:	e515200c 	ldr	r2, [r5, #-12]
+      68:	e515e010 	ldr	lr, [r5, #-16]
+      6c:	e5154008 	ldr	r4, [r5, #-8]
+      70:	e15e0002 	cmp	lr, r2
+      74:	00822004 	addeq	r2, r2, r4
+      78:	0a000009 	beq	a4 <__cs3_start_c+0x60>
+      7c:	e3540000 	cmp	r4, #0
+      80:	0a000007 	beq	a4 <__cs3_start_c+0x60>
+      84:	e1a07002 	mov	r7, r2
+      88:	e1a0c002 	mov	r12, r2
+      8c:	e8be000c 	ldm	lr!, {r2, r3}
+      90:	e8ac000c 	stmia	r12!, {r2, r3}
+      94:	e067300c 	rsb	r3, r7, r12
+      98:	e1540003 	cmp	r4, r3
+      9c:	e1a0200c 	mov	r2, r12
+      a0:	1afffff9 	bne	8c <__cs3_start_c+0x48>
+      a4:	e515e004 	ldr	lr, [r5, #-4]
+      a8:	e35e0000 	cmp	lr, #0
+      ac:	11a03002 	movne	r3, r2
+      b0:	0a000003 	beq	c4 <__cs3_start_c+0x80>
+      b4:	e8a30003 	stmia	r3!, {r0, r1}
+      b8:	e062c003 	rsb	r12, r2, r3
+      bc:	e15e000c 	cmp	lr, r12
+      c0:	1afffffb 	bne	b4 <__cs3_start_c+0x70>
+      c4:	e2466001 	sub	r6, r6, #1
+      c8:	e3760001 	cmn	r6, #1
+      cc:	e2855014 	add	r5, r5, #20
+      d0:	1affffe3 	bne	64 <__cs3_start_c+0x20>
+      d4:	eb000517 	bl	1538 <__cs3_premain>
+      d8:	00000001 	.word	0x00000001
+      dc:	0000169c 	.word	0x0000169c
+
+000000e0 <__cs3_start_asm_sim>:
+      e0:	e28f103c 	add	r1, pc, #60	; 0x3c
+      e4:	e3a00016 	mov	r0, #22
+      e8:	ef123456 	svc	0x00123456
+      ec:	e3500000 	cmp	r0, #0
+      f0:	ba000008 	blt	118 <__cs3_start_asm_sim+0x38>
+      f4:	e59f2028 	ldr	r2, [pc, #40]	; 124 <__cs3_heap_start_ptr>
+      f8:	e59fd01c 	ldr	sp, [pc, #28]	; 11c <__cs3_start_asm_sim+0x3c>
+      fc:	e5920008 	ldr	r0, [r2, #8]
+     100:	e3500000 	cmp	r0, #0
+     104:	11a0d000 	movne	sp, r0
+     108:	e59f1010 	ldr	r1, [pc, #16]	; 120 <__cs3_start_asm_sim+0x40>
+     10c:	e5920004 	ldr	r0, [r2, #4]
+     110:	e3500000 	cmp	r0, #0
+     114:	15810000 	strne	r0, [r1]
+     118:	eaffffc9 	b	44 <__cs3_start_c>
+     11c:	3ffffff8 	.word	0x3ffffff8
+     120:	00001ad8 	.word	0x00001ad8
+
+00000124 <__cs3_heap_start_ptr>:
+     124:	00001b00 	.word	0x00001b00
+
+00000128 <_start>:
+     128:	e51fd000 	ldr	sp, [pc, #-0]	; 130 <_start+0x8>
+     12c:	eaffffc4 	b	44 <__cs3_start_c>
+     130:	3ffffff8 	.word	0x3ffffff8
+
+00000134 <deregister_tm_clones>:
+     134:	e92d4008 	push	{r3, lr}
+     138:	e59f002c 	ldr	r0, [pc, #44]	; 16c <deregister_tm_clones+0x38>
+     13c:	e59f302c 	ldr	r3, [pc, #44]	; 170 <deregister_tm_clones+0x3c>
+     140:	e0603003 	rsb	r3, r0, r3
+     144:	e3530006 	cmp	r3, #6
+     148:	8a000001 	bhi	154 <deregister_tm_clones+0x20>
+     14c:	e8bd4008 	pop	{r3, lr}
+     150:	e12fff1e 	bx	lr
+     154:	e59f3018 	ldr	r3, [pc, #24]	; 174 <deregister_tm_clones+0x40>
+     158:	e3530000 	cmp	r3, #0
+     15c:	0afffffa 	beq	14c <deregister_tm_clones+0x18>
+     160:	e1a0e00f 	mov	lr, pc
+     164:	e12fff13 	bx	r3
+     168:	eafffff7 	b	14c <deregister_tm_clones+0x18>
+     16c:	00001ae0 	.word	0x00001ae0
+     170:	00001ae3 	.word	0x00001ae3
+     174:	00000000 	.word	0x00000000
+
+00000178 <register_tm_clones>:
+     178:	e92d4008 	push	{r3, lr}
+     17c:	e59f0034 	ldr	r0, [pc, #52]	; 1b8 <register_tm_clones+0x40>
+     180:	e59f3034 	ldr	r3, [pc, #52]	; 1bc <register_tm_clones+0x44>
+     184:	e0603003 	rsb	r3, r0, r3
+     188:	e1a03143 	asr	r3, r3, #2
+     18c:	e0833fa3 	add	r3, r3, r3, lsr #31
+     190:	e1b010c3 	asrs	r1, r3, #1
+     194:	1a000001 	bne	1a0 <register_tm_clones+0x28>
+     198:	e8bd4008 	pop	{r3, lr}
+     19c:	e12fff1e 	bx	lr
+     1a0:	e59f2018 	ldr	r2, [pc, #24]	; 1c0 <register_tm_clones+0x48>
+     1a4:	e3520000 	cmp	r2, #0
+     1a8:	0afffffa 	beq	198 <register_tm_clones+0x20>
+     1ac:	e1a0e00f 	mov	lr, pc
+     1b0:	e12fff12 	bx	r2
+     1b4:	eafffff7 	b	198 <register_tm_clones+0x20>
+     1b8:	00001ae0 	.word	0x00001ae0
+     1bc:	00001ae0 	.word	0x00001ae0
+     1c0:	00000000 	.word	0x00000000
+
+000001c4 <__do_global_dtors_aux>:
+     1c4:	e92d4010 	push	{r4, lr}
+     1c8:	e59f402c 	ldr	r4, [pc, #44]	; 1fc <__do_global_dtors_aux+0x38>
+     1cc:	e5d43000 	ldrb	r3, [r4]
+     1d0:	e3530000 	cmp	r3, #0
+     1d4:	1a000006 	bne	1f4 <__do_global_dtors_aux+0x30>
+     1d8:	ebffffd5 	bl	134 <deregister_tm_clones>
+     1dc:	e59f301c 	ldr	r3, [pc, #28]	; 200 <__do_global_dtors_aux+0x3c>
+     1e0:	e3530000 	cmp	r3, #0
+     1e4:	159f0018 	ldrne	r0, [pc, #24]	; 204 <__do_global_dtors_aux+0x40>
+     1e8:	1320f000 	nopne	{0}
+     1ec:	e3a03001 	mov	r3, #1
+     1f0:	e5c43000 	strb	r3, [r4]
+     1f4:	e8bd4010 	pop	{r4, lr}
+     1f8:	e12fff1e 	bx	lr
+     1fc:	00001ae0 	.word	0x00001ae0
+     200:	00000000 	.word	0x00000000
+     204:	00001640 	.word	0x00001640
+
+00000208 <frame_dummy>:
+     208:	e92d4008 	push	{r3, lr}
+     20c:	e59f3034 	ldr	r3, [pc, #52]	; 248 <frame_dummy+0x40>
+     210:	e3530000 	cmp	r3, #0
+     214:	159f0030 	ldrne	r0, [pc, #48]	; 24c <frame_dummy+0x44>
+     218:	159f1030 	ldrne	r1, [pc, #48]	; 250 <frame_dummy+0x48>
+     21c:	1320f000 	nopne	{0}
+     220:	e59f002c 	ldr	r0, [pc, #44]	; 254 <frame_dummy+0x4c>
+     224:	e5903000 	ldr	r3, [r0]
+     228:	e3530000 	cmp	r3, #0
+     22c:	0a000003 	beq	240 <frame_dummy+0x38>
+     230:	e59f3020 	ldr	r3, [pc, #32]	; 258 <frame_dummy+0x50>
+     234:	e3530000 	cmp	r3, #0
+     238:	11a0e00f 	movne	lr, pc
+     23c:	112fff13 	bxne	r3
+     240:	e8bd4008 	pop	{r3, lr}
+     244:	eaffffcb 	b	178 <register_tm_clones>
+     248:	00000000 	.word	0x00000000
+     24c:	00001640 	.word	0x00001640
+     250:	00001ae4 	.word	0x00001ae4
+     254:	000016a0 	.word	0x000016a0
+     258:	00000000 	.word	0x00000000
+
+0000025c <wait_for_vsync>:
+
+void wait_for_vsync(){
+	volatile int* pixel_ctrl_ptr = 0xFF203020;	//pixel controller
+	register int status;
+	
+	*pixel_ctrl_ptr = 1;	//start the synchronization process
+     25c:	e3033fff 	movw	r3, #16383	; 0x3fff
+     260:	e34f3f20 	movt	r3, #65312	; 0xff20
+     264:	e3a02001 	mov	r2, #1
+     268:	e5032fdf 	str	r2, [r3, #-4063]	; 0xfffff021
+	
+	status = *(pixel_ctrl_ptr + 3);
+     26c:	e5133fd3 	ldr	r3, [r3, #-4051]	; 0xfffff02d
+	while((status & 0x01) != 0){
+     270:	e3130001 	tst	r3, #1
+     274:	012fff1e 	bxeq	lr
+		status = *(pixel_ctrl_ptr + 3);
+     278:	e3032fff 	movw	r2, #16383	; 0x3fff
+     27c:	e34f2f20 	movt	r2, #65312	; 0xff20
+     280:	e5123fd3 	ldr	r3, [r2, #-4051]	; 0xfffff02d
+	register int status;
+	
+	*pixel_ctrl_ptr = 1;	//start the synchronization process
+	
+	status = *(pixel_ctrl_ptr + 3);
+	while((status & 0x01) != 0){
+     284:	e3130001 	tst	r3, #1
+     288:	1afffffc 	bne	280 <wait_for_vsync+0x24>
+     28c:	e12fff1e 	bx	lr
+
+00000290 <plot_pixel>:
+		status = *(pixel_ctrl_ptr + 3);
+	}
+}
+
+void plot_pixel(int x, int y, short int line_color){
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+     290:	e3013afc 	movw	r3, #6908	; 0x1afc
+     294:	e3403000 	movt	r3, #0
+     298:	e5933000 	ldr	r3, [r3]
+     29c:	e1a00080 	lsl	r0, r0, #1
+     2a0:	e0831501 	add	r1, r3, r1, lsl #10
+     2a4:	e18120b0 	strh	r2, [r1, r0]
+     2a8:	e12fff1e 	bx	lr
+
+000002ac <clear_screen>:
+}
+
+void clear_screen(int x0, int y0, int x1, int y1){
+     2ac:	e92d45f8 	push	{r3, r4, r5, r6, r7, r8, r10, lr}
+     2b0:	e1a08001 	mov	r8, r1
+     2b4:	e1a0a002 	mov	r10, r2
+     2b8:	e1a06003 	mov	r6, r3
+	for(int x = x0 ; x < x1 ; x++){
+     2bc:	e1500002 	cmp	r0, r2
+     2c0:	a8bd85f8 	popge	{r3, r4, r5, r6, r7, r8, r10, pc}
+     2c4:	ea00000a 	b	2f4 <clear_screen+0x48>
+		for(int y = y0 ; y < y1 ; y++){
+			plot_pixel(x, y, 0); 	//color black
+     2c8:	e1a00005 	mov	r0, r5
+     2cc:	e1a01004 	mov	r1, r4
+     2d0:	e1a02007 	mov	r2, r7
+     2d4:	ebffffed 	bl	290 <plot_pixel>
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+}
+
+void clear_screen(int x0, int y0, int x1, int y1){
+	for(int x = x0 ; x < x1 ; x++){
+		for(int y = y0 ; y < y1 ; y++){
+     2d8:	e2844001 	add	r4, r4, #1
+     2dc:	e1560004 	cmp	r6, r4
+     2e0:	cafffff8 	bgt	2c8 <clear_screen+0x1c>
+void plot_pixel(int x, int y, short int line_color){
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+}
+
+void clear_screen(int x0, int y0, int x1, int y1){
+	for(int x = x0 ; x < x1 ; x++){
+     2e4:	e2855001 	add	r5, r5, #1
+     2e8:	e15a0005 	cmp	r10, r5
+     2ec:	ca000002 	bgt	2fc <clear_screen+0x50>
+     2f0:	e8bd85f8 	pop	{r3, r4, r5, r6, r7, r8, r10, pc}
+     2f4:	e1a05000 	mov	r5, r0
+		for(int y = y0 ; y < y1 ; y++){
+			plot_pixel(x, y, 0); 	//color black
+     2f8:	e3a07000 	mov	r7, #0
+    *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
+}
+
+void clear_screen(int x0, int y0, int x1, int y1){
+	for(int x = x0 ; x < x1 ; x++){
+		for(int y = y0 ; y < y1 ; y++){
+     2fc:	e1580006 	cmp	r8, r6
+     300:	b1a04008 	movlt	r4, r8
+     304:	baffffef 	blt	2c8 <clear_screen+0x1c>
+     308:	eafffff5 	b	2e4 <clear_screen+0x38>
+
+0000030c <swap>:
+	}
+}
+
+void swap(int* num1, int* num2){
+	int temp;
+	temp = *num1;
+     30c:	e5903000 	ldr	r3, [r0]
+	*num1 = *num2;
+     310:	e5912000 	ldr	r2, [r1]
+     314:	e5802000 	str	r2, [r0]
+	*num2 = temp;
+     318:	e5813000 	str	r3, [r1]
+     31c:	e12fff1e 	bx	lr
+
+00000320 <draw_line>:
+			plot_pixel(x, y, 0); 	//color black
+		}
+	}
+}
+
+void draw_line(int x0, int y0, int x1, int y1, int color){
+     320:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+     324:	e24dd014 	sub	sp, sp, #20
+     328:	e58d000c 	str	r0, [sp, #12]
+     32c:	e58d1008 	str	r1, [sp, #8]
+     330:	e58d2004 	str	r2, [sp, #4]
+     334:	e58d3000 	str	r3, [sp]
+	int temp;
+	bool steep = abs(y1-y0) > abs(x1-x0);
+     338:	e0613003 	rsb	r3, r1, r3
+     33c:	e3530000 	cmp	r3, #0
+     340:	b2633000 	rsblt	r3, r3, #0
+     344:	e0602002 	rsb	r2, r0, r2
+     348:	e0228fc2 	eor	r8, r2, r2, asr #31
+     34c:	e0488fc2 	sub	r8, r8, r2, asr #31
+     350:	e1530008 	cmp	r3, r8
+     354:	d3a08000 	movle	r8, #0
+     358:	c3a08001 	movgt	r8, #1
+	int* x0ptr = &x0;
+	int* x1ptr = &x1;
+	int* y0ptr = &y0;
+	int* y1ptr = &y1;
+	
+	if (steep){
+     35c:	e3580000 	cmp	r8, #0
+     360:	0a000005 	beq	37c <draw_line+0x5c>
+		swap(x0ptr,y0ptr);
+     364:	e28d000c 	add	r0, sp, #12
+     368:	e28d1008 	add	r1, sp, #8
+     36c:	ebffffe6 	bl	30c <swap>
+		swap(x1ptr,y1ptr);
+     370:	e28d0004 	add	r0, sp, #4
+     374:	e1a0100d 	mov	r1, sp
+     378:	ebffffe3 	bl	30c <swap>
+	}
+	if (x0>x1){
+     37c:	e59d3004 	ldr	r3, [sp, #4]
+     380:	e59d200c 	ldr	r2, [sp, #12]
+     384:	e1520003 	cmp	r2, r3
+     388:	da000005 	ble	3a4 <draw_line+0x84>
+		swap(x0ptr,x1ptr);
+     38c:	e28d000c 	add	r0, sp, #12
+     390:	e28d1004 	add	r1, sp, #4
+     394:	ebffffdc 	bl	30c <swap>
+		swap(y0ptr,y1ptr);
+     398:	e28d0008 	add	r0, sp, #8
+     39c:	e1a0100d 	mov	r1, sp
+     3a0:	ebffffd9 	bl	30c <swap>
+	}
+	
+	int deltax = x1-x0;
+     3a4:	e59d3004 	ldr	r3, [sp, #4]
+     3a8:	e59d500c 	ldr	r5, [sp, #12]
+     3ac:	e0659003 	rsb	r9, r5, r3
+	int deltay = abs(y1-y0);
+     3b0:	e59d2000 	ldr	r2, [sp]
+     3b4:	e59d6008 	ldr	r6, [sp, #8]
+     3b8:	e0667002 	rsb	r7, r6, r2
+     3bc:	e3570000 	cmp	r7, #0
+     3c0:	b2677000 	rsblt	r7, r7, #0
+	int error = -(deltax/2);
+     3c4:	e0894fa9 	add	r4, r9, r9, lsr #31
+     3c8:	e1a040c4 	asr	r4, r4, #1
+     3cc:	e2644000 	rsb	r4, r4, #0
+	int y = y0;
+	
+	int y_step;
+	
+	if (y0 < y1){
+		y_step = 1;
+     3d0:	e1520006 	cmp	r2, r6
+     3d4:	d3e0b000 	mvnle	r11, #0
+     3d8:	c3a0b001 	movgt	r11, #1
+	} else {
+		y_step = -1;
+	}
+	
+	for(int x  = x0; x <= x1; x++){
+     3dc:	e1530005 	cmp	r3, r5
+     3e0:	ba00000e 	blt	420 <draw_line+0x100>
+		if (steep) plot_pixel(y,x, color);
+     3e4:	e1dda3f8 	ldrsh	r10, [sp, #56]	; 0x38
+     3e8:	e3580000 	cmp	r8, #0
+     3ec:	11a00006 	movne	r0, r6
+     3f0:	11a01005 	movne	r1, r5
+		else plot_pixel(x,y, color);
+     3f4:	01a00005 	moveq	r0, r5
+     3f8:	01a01006 	moveq	r1, r6
+     3fc:	e1a0200a 	mov	r2, r10
+     400:	ebffffa2 	bl	290 <plot_pixel>
+		
+		error = error + deltay;
+		if (error >= 0){
+     404:	e0944007 	adds	r4, r4, r7
+			y = y + y_step;
+     408:	5086600b 	addpl	r6, r6, r11
+			error = error - deltax;
+     40c:	50694004 	rsbpl	r4, r9, r4
+		y_step = 1;
+	} else {
+		y_step = -1;
+	}
+	
+	for(int x  = x0; x <= x1; x++){
+     410:	e2855001 	add	r5, r5, #1
+     414:	e59d3004 	ldr	r3, [sp, #4]
+     418:	e1530005 	cmp	r3, r5
+     41c:	aafffff1 	bge	3e8 <draw_line+0xc8>
+		if (error >= 0){
+			y = y + y_step;
+			error = error - deltax;
+		}
+	}
+}
+     420:	e28dd014 	add	sp, sp, #20
+     424:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+
+00000428 <main>:
+void draw_line(int x0, int y0, int x1, int y1, int color);
+void swap(int* num1, int* num2);
+void wait_for_vsync();
+void clear_screen(int x0, int y0, int x1, int y1);
+
+int main(int argc, char** argv){
+     428:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+     42c:	e24ddb4b 	sub	sp, sp, #76800	; 0x12c00
+     430:	e24dd064 	sub	sp, sp, #100	; 0x64
+    volatile int* sw_ptr = 0xFF200040;	    //switch address
+    volatile int* key_ptr = 0xFF200050;     //key address
+    volatile int* ledr_ptr = 0xFF200000;    //ledr address
+	volatile int* keyboard = 0xFF200100;
+    int getLEDR;
+    *ledr_ptr = 0b0;        //scoreboard blank at the start
+     434:	e3a03000 	mov	r3, #0
+     438:	e34f3f20 	movt	r3, #65312	; 0xff20
+     43c:	e3a01000 	mov	r1, #0
+     440:	e5831000 	str	r1, [r3]
+    
+    volatile int* pixel_ctrl_ptr = (int*) 0xFF203020;
+	/*Read location of the pixel buffer from the pixel buffer controller*/
+	pixel_buffer_start = *pixel_ctrl_ptr;
+     444:	e3033fff 	movw	r3, #16383	; 0x3fff
+     448:	e34f3f20 	movt	r3, #65312	; 0xff20
+     44c:	e5132fdf 	ldr	r2, [r3, #-4063]	; 0xfffff021
+     450:	e3013afc 	movw	r3, #6908	; 0x1afc
+     454:	e3403000 	movt	r3, #0
+     458:	e5832000 	str	r2, [r3]
+	clear_screen(0, 0, 322, 242);
+     45c:	e1a00001 	mov	r0, r1
+     460:	e3002142 	movw	r2, #322	; 0x142
+     464:	e3a030f2 	mov	r3, #242	; 0xf2
+     468:	ebffff8f 	bl	2ac <clear_screen>
+void draw_line(int x0, int y0, int x1, int y1, int color);
+void swap(int* num1, int* num2);
+void wait_for_vsync();
+void clear_screen(int x0, int y0, int x1, int y1);
+
+int main(int argc, char** argv){
+     46c:	e28d0b4b 	add	r0, sp, #76800	; 0x12c00
+     470:	e2800060 	add	r0, r0, #96	; 0x60
+     474:	e58d0008 	str	r0, [sp, #8]
+     478:	e28d2060 	add	r2, sp, #96	; 0x60
+     47c:	e3a01000 	mov	r1, #0
+     480:	ea000007 	b	4a4 <main+0x7c>
+	clear_screen(0, 0, 322, 242);
+    
+    bool grid[320][240];	
+	for(int i=0 ; i<320 ; i++) 
+        for (int j=0; j<240 ; j++) 
+            grid[i][j] = 0;   //reset the grid
+     484:	e7c21003 	strb	r1, [r2, r3]
+	pixel_buffer_start = *pixel_ctrl_ptr;
+	clear_screen(0, 0, 322, 242);
+    
+    bool grid[320][240];	
+	for(int i=0 ; i<320 ; i++) 
+        for (int j=0; j<240 ; j++) 
+     488:	e2833001 	add	r3, r3, #1
+     48c:	e35300f0 	cmp	r3, #240	; 0xf0
+     490:	1afffffb 	bne	484 <main+0x5c>
+     494:	e28220f0 	add	r2, r2, #240	; 0xf0
+	/*Read location of the pixel buffer from the pixel buffer controller*/
+	pixel_buffer_start = *pixel_ctrl_ptr;
+	clear_screen(0, 0, 322, 242);
+    
+    bool grid[320][240];	
+	for(int i=0 ; i<320 ; i++) 
+     498:	e59d3008 	ldr	r3, [sp, #8]
+     49c:	e1520003 	cmp	r2, r3
+     4a0:	0a000001 	beq	4ac <main+0x84>
+void draw_line(int x0, int y0, int x1, int y1, int color);
+void swap(int* num1, int* num2);
+void wait_for_vsync();
+void clear_screen(int x0, int y0, int x1, int y1);
+
+int main(int argc, char** argv){
+     4a4:	e1a03001 	mov	r3, r1
+     4a8:	eafffff5 	b	484 <main+0x5c>
+	int speedTimer1 = 0;
+	int speedTimer2 = 0;
+	int speedDuration1 = 0;
+	int speedDuration2 = 0;
+	
+	*(key_ptr+3) = 0b1111; 
+     4ac:	e3a03000 	mov	r3, #0
+     4b0:	e34f3f20 	movt	r3, #65312	; 0xff20
+     4b4:	e3a0200f 	mov	r2, #15
+     4b8:	e583205c 	str	r2, [r3, #92]	; 0x5c
+	
+	while(1){
+		if(*(key_ptr+3) !=0){
+     4bc:	e3a03000 	mov	r3, #0
+     4c0:	e34f3f20 	movt	r3, #65312	; 0xff20
+     4c4:	e593205c 	ldr	r2, [r3, #92]	; 0x5c
+     4c8:	e3520000 	cmp	r2, #0
+     4cc:	0afffffc 	beq	4c4 <main+0x9c>
+			*(key_ptr+3) = 0b1111;
+     4d0:	e3a03000 	mov	r3, #0
+     4d4:	e34f3f20 	movt	r3, #65312	; 0xff20
+     4d8:	e3a0200f 	mov	r2, #15
+     4dc:	e583205c 	str	r2, [r3, #92]	; 0x5c
+			wait_for_vsync();
+     4e0:	ebffff5d 	bl	25c <wait_for_vsync>
+		}
+	}
+	
+    while(1){     //inital setup, players
+        //choose color (using switches), ideally their color is shown on the screen while they are choosing
+        if((*sw_ptr & 0x1) == 1) color1 = 0x1111;
+     4e4:	e3a08000 	mov	r8, #0
+     4e8:	e34f8f20 	movt	r8, #65312	; 0xff20
+     4ec:	e301a111 	movw	r10, #4369	; 0x1111
+        else if((*sw_ptr & 0x2) == 2) color1 = 0x2222;
+     4f0:	e302b222 	movw	r11, #8738	; 0x2222
+        else if((*sw_ptr & 0x4) == 4) color1 = 0x3333;
+        else if((*sw_ptr & 0x8) == 8) color1 = 0x4444;
+     4f4:	e58d9014 	str	r9, [sp, #20]
+		}
+	}
+	
+    while(1){     //inital setup, players
+        //choose color (using switches), ideally their color is shown on the screen while they are choosing
+        if((*sw_ptr & 0x1) == 1) color1 = 0x1111;
+     4f8:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+     4fc:	e3130001 	tst	r3, #1
+     500:	11a0900a 	movne	r9, r10
+     504:	1a00000e 	bne	544 <main+0x11c>
+        else if((*sw_ptr & 0x2) == 2) color1 = 0x2222;
+     508:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+     50c:	e3130002 	tst	r3, #2
+     510:	11a0900b 	movne	r9, r11
+     514:	1a00000a 	bne	544 <main+0x11c>
+        else if((*sw_ptr & 0x4) == 4) color1 = 0x3333;
+     518:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+     51c:	e3130004 	tst	r3, #4
+     520:	13039333 	movwne	r9, #13107	; 0x3333
+     524:	1a000006 	bne	544 <main+0x11c>
+        else if((*sw_ptr & 0x8) == 8) color1 = 0x4444;
+     528:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+     52c:	e2033008 	and	r3, r3, #8
+     530:	e3099999 	movw	r9, #39321	; 0x9999
+     534:	e304c444 	movw	r12, #17476	; 0x4444
+     538:	e3530000 	cmp	r3, #0
+     53c:	11a0900c 	movne	r9, r12
+     540:	eaffffff 	b	544 <main+0x11c>
+		else color1 = 0x9999;
+     544:	e3a05061 	mov	r5, #97	; 0x61
+     548:	e1a07005 	mov	r7, r5
+        
+		for(int i=-3 ; i<4 ; i++)
+			for(int j=-3 ; j<4 ; j++)
+				plot_pixel(100+i, 100+j, color1);
+     54c:	e6bf6079 	sxth	r6, r9
+     550:	ea000009 	b	57c <main+0x154>
+     554:	e1a00005 	mov	r0, r5
+     558:	e1a01004 	mov	r1, r4
+     55c:	e1a02006 	mov	r2, r6
+     560:	ebffff4a 	bl	290 <plot_pixel>
+     564:	e2844001 	add	r4, r4, #1
+        else if((*sw_ptr & 0x4) == 4) color1 = 0x3333;
+        else if((*sw_ptr & 0x8) == 8) color1 = 0x4444;
+		else color1 = 0x9999;
+        
+		for(int i=-3 ; i<4 ; i++)
+			for(int j=-3 ; j<4 ; j++)
+     568:	e3540068 	cmp	r4, #104	; 0x68
+     56c:	1afffff8 	bne	554 <main+0x12c>
+     570:	e2855001 	add	r5, r5, #1
+        else if((*sw_ptr & 0x2) == 2) color1 = 0x2222;
+        else if((*sw_ptr & 0x4) == 4) color1 = 0x3333;
+        else if((*sw_ptr & 0x8) == 8) color1 = 0x4444;
+		else color1 = 0x9999;
+        
+		for(int i=-3 ; i<4 ; i++)
+     574:	e3550068 	cmp	r5, #104	; 0x68
+     578:	0a000001 	beq	584 <main+0x15c>
+        //choose color (using switches), ideally their color is shown on the screen while they are choosing
+        if((*sw_ptr & 0x1) == 1) color1 = 0x1111;
+        else if((*sw_ptr & 0x2) == 2) color1 = 0x2222;
+        else if((*sw_ptr & 0x4) == 4) color1 = 0x3333;
+        else if((*sw_ptr & 0x8) == 8) color1 = 0x4444;
+		else color1 = 0x9999;
+     57c:	e1a04007 	mov	r4, r7
+     580:	eafffff3 	b	554 <main+0x12c>
+        
+		for(int i=-3 ; i<4 ; i++)
+			for(int j=-3 ; j<4 ; j++)
+				plot_pixel(100+i, 100+j, color1);
+		
+        if((*sw_ptr && 0x10) == 16) color2 = 0x5555;
+     584:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+        else if((*sw_ptr & 0x20) == 32) color2 = 0x6666;
+     588:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+     58c:	e3130020 	tst	r3, #32
+     590:	1306e666 	movwne	lr, #26214	; 0x6666
+     594:	158de02c 	strne	lr, [sp, #44]	; 0x2c
+     598:	1a00000c 	bne	5d0 <main+0x1a8>
+        else if((*sw_ptr & 0x40) == 64) color2 = 0x7777;
+     59c:	e5983040 	ldr	r3, [r8, #64]	; 0x40
+     5a0:	e3130040 	tst	r3, #64	; 0x40
+     5a4:	13070777 	movwne	r0, #30583	; 0x7777
+     5a8:	158d002c 	strne	r0, [sp, #44]	; 0x2c
+     5ac:	1a000007 	bne	5d0 <main+0x1a8>
+        else if((*sw_ptr & 0x80) == 128) color2 = 0x8888;
+     5b0:	e5981040 	ldr	r1, [r8, #64]	; 0x40
+     5b4:	e2011080 	and	r1, r1, #128	; 0x80
+     5b8:	e3083888 	movw	r3, #34952	; 0x8888
+     5bc:	e30a2aaa 	movw	r2, #43690	; 0xaaaa
+     5c0:	e3510000 	cmp	r1, #0
+     5c4:	11a02003 	movne	r2, r3
+     5c8:	e58d202c 	str	r2, [sp, #44]	; 0x2c
+     5cc:	eaffffff 	b	5d0 <main+0x1a8>
+     5d0:	e3a050d9 	mov	r5, #217	; 0xd9
+     5d4:	e3a07061 	mov	r7, #97	; 0x61
+        else color2 = 0xaaaa;
+		
+		for(int i=-3 ; i<4 ; i++)
+			for(int j=-3 ; j<4 ; j++)
+				plot_pixel(220+i, 100+j, color2);
+     5d8:	e59d102c 	ldr	r1, [sp, #44]	; 0x2c
+     5dc:	e6bf6071 	sxth	r6, r1
+     5e0:	ea000009 	b	60c <main+0x1e4>
+     5e4:	e1a00005 	mov	r0, r5
+     5e8:	e1a01004 	mov	r1, r4
+     5ec:	e1a02006 	mov	r2, r6
+     5f0:	ebffff26 	bl	290 <plot_pixel>
+     5f4:	e2844001 	add	r4, r4, #1
+        else if((*sw_ptr & 0x40) == 64) color2 = 0x7777;
+        else if((*sw_ptr & 0x80) == 128) color2 = 0x8888;
+        else color2 = 0xaaaa;
+		
+		for(int i=-3 ; i<4 ; i++)
+			for(int j=-3 ; j<4 ; j++)
+     5f8:	e3540068 	cmp	r4, #104	; 0x68
+     5fc:	1afffff8 	bne	5e4 <main+0x1bc>
+     600:	e2855001 	add	r5, r5, #1
+        else if((*sw_ptr & 0x20) == 32) color2 = 0x6666;
+        else if((*sw_ptr & 0x40) == 64) color2 = 0x7777;
+        else if((*sw_ptr & 0x80) == 128) color2 = 0x8888;
+        else color2 = 0xaaaa;
+		
+		for(int i=-3 ; i<4 ; i++)
+     604:	e35500e0 	cmp	r5, #224	; 0xe0
+     608:	0a000001 	beq	614 <main+0x1ec>
+				plot_pixel(100+i, 100+j, color1);
+		
+        if((*sw_ptr && 0x10) == 16) color2 = 0x5555;
+        else if((*sw_ptr & 0x20) == 32) color2 = 0x6666;
+        else if((*sw_ptr & 0x40) == 64) color2 = 0x7777;
+        else if((*sw_ptr & 0x80) == 128) color2 = 0x8888;
+     60c:	e1a04007 	mov	r4, r7
+     610:	eafffff3 	b	5e4 <main+0x1bc>
+		for(int i=-3 ; i<4 ; i++)
+			for(int j=-3 ; j<4 ; j++)
+				plot_pixel(220+i, 100+j, color2);
+		
+        //choose length of game (bo3, bo5), based on key pressed
+        if(*(key_ptr+3) !=0){ 
+     614:	e598305c 	ldr	r3, [r8, #92]	; 0x5c
+     618:	e3530000 	cmp	r3, #0
+     61c:	0affffb5 	beq	4f8 <main+0xd0>
+     620:	e58d9054 	str	r9, [sp, #84]	; 0x54
+     624:	e59d9014 	ldr	r9, [sp, #20]
+			draw_line(0, 20, 319, 20, 0xFFFF);
+     628:	e30f3fff 	movw	r3, #65535	; 0xffff
+     62c:	e58d3000 	str	r3, [sp]
+     630:	e3a00000 	mov	r0, #0
+     634:	e3a01014 	mov	r1, #20
+     638:	e300213f 	movw	r2, #319	; 0x13f
+     63c:	e1a03001 	mov	r3, r1
+     640:	ebffff36 	bl	320 <draw_line>
+			if(*(key_ptr+3)==1){            //key 0 pressed, bo1
+     644:	e3a03000 	mov	r3, #0
+     648:	e34f3f20 	movt	r3, #65312	; 0xff20
+     64c:	e593305c 	ldr	r3, [r3, #92]	; 0x5c
+     650:	e3530001 	cmp	r3, #1
+     654:	1a00000f 	bne	698 <main+0x270>
+				gameLength = 1;
+				draw_line(6, 5, 6, 15, 0xCCCC);
+     658:	e30c4ccc 	movw	r4, #52428	; 0xcccc
+     65c:	e58d4000 	str	r4, [sp]
+     660:	e3a00006 	mov	r0, #6
+     664:	e3a01005 	mov	r1, #5
+     668:	e1a02000 	mov	r2, r0
+     66c:	e3a0300f 	mov	r3, #15
+     670:	ebffff2a 	bl	320 <draw_line>
+				draw_line(312, 5, 312, 15, 0xCCCC);
+     674:	e58d4000 	str	r4, [sp]
+     678:	e3a00f4e 	mov	r0, #312	; 0x138
+     67c:	e3a01005 	mov	r1, #5
+     680:	e1a02000 	mov	r2, r0
+     684:	e3a0300f 	mov	r3, #15
+     688:	ebffff24 	bl	320 <draw_line>
+		
+        //choose length of game (bo3, bo5), based on key pressed
+        if(*(key_ptr+3) !=0){ 
+			draw_line(0, 20, 319, 20, 0xFFFF);
+			if(*(key_ptr+3)==1){            //key 0 pressed, bo1
+				gameLength = 1;
+     68c:	e3a02001 	mov	r2, #1
+     690:	e58d203c 	str	r2, [sp, #60]	; 0x3c
+     694:	ea000085 	b	8b0 <main+0x488>
+				draw_line(6, 5, 6, 15, 0xCCCC);
+				draw_line(312, 5, 312, 15, 0xCCCC);
+			} else if(*(key_ptr+3)==2){     //key 1 pressed, bo3
+     698:	e3a03000 	mov	r3, #0
+     69c:	e34f3f20 	movt	r3, #65312	; 0xff20
+     6a0:	e593305c 	ldr	r3, [r3, #92]	; 0x5c
+     6a4:	e3530002 	cmp	r3, #2
+     6a8:	1a00001b 	bne	71c <main+0x2f4>
+				gameLength = 2;
+				draw_line(6, 5, 6, 15, 0xCCCC);
+     6ac:	e30c4ccc 	movw	r4, #52428	; 0xcccc
+     6b0:	e58d4000 	str	r4, [sp]
+     6b4:	e3a00006 	mov	r0, #6
+     6b8:	e3a01005 	mov	r1, #5
+     6bc:	e1a02000 	mov	r2, r0
+     6c0:	e3a0300f 	mov	r3, #15
+     6c4:	ebffff15 	bl	320 <draw_line>
+				draw_line(10, 5, 10, 15, 0xCCCC);
+     6c8:	e58d4000 	str	r4, [sp]
+     6cc:	e3a0000a 	mov	r0, #10
+     6d0:	e3a01005 	mov	r1, #5
+     6d4:	e1a02000 	mov	r2, r0
+     6d8:	e3a0300f 	mov	r3, #15
+     6dc:	ebffff0f 	bl	320 <draw_line>
+				draw_line(312, 5, 312, 15, 0xCCCC);
+     6e0:	e58d4000 	str	r4, [sp]
+     6e4:	e3a00f4e 	mov	r0, #312	; 0x138
+     6e8:	e3a01005 	mov	r1, #5
+     6ec:	e1a02000 	mov	r2, r0
+     6f0:	e3a0300f 	mov	r3, #15
+     6f4:	ebffff09 	bl	320 <draw_line>
+				draw_line(308, 5, 308, 15, 0xCCCC);
+     6f8:	e58d4000 	str	r4, [sp]
+     6fc:	e3a00f4d 	mov	r0, #308	; 0x134
+     700:	e3a01005 	mov	r1, #5
+     704:	e1a02000 	mov	r2, r0
+     708:	e3a0300f 	mov	r3, #15
+     70c:	ebffff03 	bl	320 <draw_line>
+			if(*(key_ptr+3)==1){            //key 0 pressed, bo1
+				gameLength = 1;
+				draw_line(6, 5, 6, 15, 0xCCCC);
+				draw_line(312, 5, 312, 15, 0xCCCC);
+			} else if(*(key_ptr+3)==2){     //key 1 pressed, bo3
+				gameLength = 2;
+     710:	e3a03002 	mov	r3, #2
+     714:	e58d303c 	str	r3, [sp, #60]	; 0x3c
+     718:	ea000064 	b	8b0 <main+0x488>
+				draw_line(6, 5, 6, 15, 0xCCCC);
+				draw_line(10, 5, 10, 15, 0xCCCC);
+				draw_line(312, 5, 312, 15, 0xCCCC);
+				draw_line(308, 5, 308, 15, 0xCCCC);
+			} else if(*(key_ptr+3)==4){     //key 2 pressed, bo5
+     71c:	e3a03000 	mov	r3, #0
+     720:	e34f3f20 	movt	r3, #65312	; 0xff20
+     724:	e593305c 	ldr	r3, [r3, #92]	; 0x5c
+     728:	e3530004 	cmp	r3, #4
+     72c:	1a000027 	bne	7d0 <main+0x3a8>
+				gameLength = 3;
+				draw_line(6, 5, 6, 15, 0xCCCC);
+     730:	e30c4ccc 	movw	r4, #52428	; 0xcccc
+     734:	e58d4000 	str	r4, [sp]
+     738:	e3a00006 	mov	r0, #6
+     73c:	e3a01005 	mov	r1, #5
+     740:	e1a02000 	mov	r2, r0
+     744:	e3a0300f 	mov	r3, #15
+     748:	ebfffef4 	bl	320 <draw_line>
+				draw_line(10, 5, 10, 15, 0xCCCC);
+     74c:	e58d4000 	str	r4, [sp]
+     750:	e3a0000a 	mov	r0, #10
+     754:	e3a01005 	mov	r1, #5
+     758:	e1a02000 	mov	r2, r0
+     75c:	e3a0300f 	mov	r3, #15
+     760:	ebfffeee 	bl	320 <draw_line>
+				draw_line(14, 5, 14, 15, 0xCCCC);
+     764:	e58d4000 	str	r4, [sp]
+     768:	e3a0000e 	mov	r0, #14
+     76c:	e3a01005 	mov	r1, #5
+     770:	e1a02000 	mov	r2, r0
+     774:	e3a0300f 	mov	r3, #15
+     778:	ebfffee8 	bl	320 <draw_line>
+				draw_line(312, 5, 312, 15, 0xCCCC);
+     77c:	e58d4000 	str	r4, [sp]
+     780:	e3a00f4e 	mov	r0, #312	; 0x138
+     784:	e3a01005 	mov	r1, #5
+     788:	e1a02000 	mov	r2, r0
+     78c:	e3a0300f 	mov	r3, #15
+     790:	ebfffee2 	bl	320 <draw_line>
+				draw_line(308, 5, 308, 15, 0xCCCC);
+     794:	e58d4000 	str	r4, [sp]
+     798:	e3a00f4d 	mov	r0, #308	; 0x134
+     79c:	e3a01005 	mov	r1, #5
+     7a0:	e1a02000 	mov	r2, r0
+     7a4:	e3a0300f 	mov	r3, #15
+     7a8:	ebfffedc 	bl	320 <draw_line>
+				draw_line(304, 5, 304, 15, 0xCCCC);
+     7ac:	e58d4000 	str	r4, [sp]
+     7b0:	e3a00e13 	mov	r0, #304	; 0x130
+     7b4:	e3a01005 	mov	r1, #5
+     7b8:	e1a02000 	mov	r2, r0
+     7bc:	e3a0300f 	mov	r3, #15
+     7c0:	ebfffed6 	bl	320 <draw_line>
+				draw_line(6, 5, 6, 15, 0xCCCC);
+				draw_line(10, 5, 10, 15, 0xCCCC);
+				draw_line(312, 5, 312, 15, 0xCCCC);
+				draw_line(308, 5, 308, 15, 0xCCCC);
+			} else if(*(key_ptr+3)==4){     //key 2 pressed, bo5
+				gameLength = 3;
+     7c4:	e3a0c003 	mov	r12, #3
+     7c8:	e58dc03c 	str	r12, [sp, #60]	; 0x3c
+     7cc:	ea000037 	b	8b0 <main+0x488>
+				draw_line(10, 5, 10, 15, 0xCCCC);
+				draw_line(14, 5, 14, 15, 0xCCCC);
+				draw_line(312, 5, 312, 15, 0xCCCC);
+				draw_line(308, 5, 308, 15, 0xCCCC);
+				draw_line(304, 5, 304, 15, 0xCCCC);
+			} else if(*(key_ptr+3)==8){     //key 3 pressed, bo7
+     7d0:	e3a03000 	mov	r3, #0
+     7d4:	e34f3f20 	movt	r3, #65312	; 0xff20
+     7d8:	e593305c 	ldr	r3, [r3, #92]	; 0x5c
+     7dc:	e3530008 	cmp	r3, #8
+     7e0:	1a000032 	bne	8b0 <main+0x488>
+				gameLength = 4;
+				draw_line(6, 5, 6, 15, 0xCCCC);
+     7e4:	e30c4ccc 	movw	r4, #52428	; 0xcccc
+     7e8:	e58d4000 	str	r4, [sp]
+     7ec:	e3a00006 	mov	r0, #6
+     7f0:	e3a01005 	mov	r1, #5
+     7f4:	e1a02000 	mov	r2, r0
+     7f8:	e3a0300f 	mov	r3, #15
+     7fc:	ebfffec7 	bl	320 <draw_line>
+				draw_line(10, 5, 10, 15, 0xCCCC);
+     800:	e58d4000 	str	r4, [sp]
+     804:	e3a0000a 	mov	r0, #10
+     808:	e3a01005 	mov	r1, #5
+     80c:	e1a02000 	mov	r2, r0
+     810:	e3a0300f 	mov	r3, #15
+     814:	ebfffec1 	bl	320 <draw_line>
+				draw_line(14, 5, 14, 15, 0xCCCC);
+     818:	e58d4000 	str	r4, [sp]
+     81c:	e3a0000e 	mov	r0, #14
+     820:	e3a01005 	mov	r1, #5
+     824:	e1a02000 	mov	r2, r0
+     828:	e3a0300f 	mov	r3, #15
+     82c:	ebfffebb 	bl	320 <draw_line>
+				draw_line(18, 5, 18, 15, 0xCCCC);
+     830:	e58d4000 	str	r4, [sp]
+     834:	e3a00012 	mov	r0, #18
+     838:	e3a01005 	mov	r1, #5
+     83c:	e1a02000 	mov	r2, r0
+     840:	e3a0300f 	mov	r3, #15
+     844:	ebfffeb5 	bl	320 <draw_line>
+				draw_line(312, 5, 312, 15, 0xCCCC);
+     848:	e58d4000 	str	r4, [sp]
+     84c:	e3a00f4e 	mov	r0, #312	; 0x138
+     850:	e3a01005 	mov	r1, #5
+     854:	e1a02000 	mov	r2, r0
+     858:	e3a0300f 	mov	r3, #15
+     85c:	ebfffeaf 	bl	320 <draw_line>
+				draw_line(308, 5, 308, 15, 0xCCCC);
+     860:	e58d4000 	str	r4, [sp]
+     864:	e3a00f4d 	mov	r0, #308	; 0x134
+     868:	e3a01005 	mov	r1, #5
+     86c:	e1a02000 	mov	r2, r0
+     870:	e3a0300f 	mov	r3, #15
+     874:	ebfffea9 	bl	320 <draw_line>
+				draw_line(304, 5, 304, 15, 0xCCCC);
+     878:	e58d4000 	str	r4, [sp]
+     87c:	e3a00e13 	mov	r0, #304	; 0x130
+     880:	e3a01005 	mov	r1, #5
+     884:	e1a02000 	mov	r2, r0
+     888:	e3a0300f 	mov	r3, #15
+     88c:	ebfffea3 	bl	320 <draw_line>
+				draw_line(300, 5, 300, 15, 0xCCCC);
+     890:	e58d4000 	str	r4, [sp]
+     894:	e3a00f4b 	mov	r0, #300	; 0x12c
+     898:	e3a01005 	mov	r1, #5
+     89c:	e1a02000 	mov	r2, r0
+     8a0:	e3a0300f 	mov	r3, #15
+     8a4:	ebfffe9d 	bl	320 <draw_line>
+				draw_line(14, 5, 14, 15, 0xCCCC);
+				draw_line(312, 5, 312, 15, 0xCCCC);
+				draw_line(308, 5, 308, 15, 0xCCCC);
+				draw_line(304, 5, 304, 15, 0xCCCC);
+			} else if(*(key_ptr+3)==8){     //key 3 pressed, bo7
+				gameLength = 4;
+     8a8:	e3a0e004 	mov	lr, #4
+     8ac:	e58de03c 	str	lr, [sp, #60]	; 0x3c
+				draw_line(312, 5, 312, 15, 0xCCCC);
+				draw_line(308, 5, 308, 15, 0xCCCC);
+				draw_line(304, 5, 304, 15, 0xCCCC);
+				draw_line(300, 5, 300, 15, 0xCCCC);
+			}
+			*(key_ptr+3) = 0b1111;
+     8b0:	e3a03000 	mov	r3, #0
+     8b4:	e34f3f20 	movt	r3, #65312	; 0xff20
+     8b8:	e3a0200f 	mov	r2, #15
+     8bc:	e583205c 	str	r2, [r3, #92]	; 0x5c
+	int wallDelay = 20;
+	int wallCount = 0;
+	int speedTimer1 = 0;
+	int speedTimer2 = 0;
+	int speedDuration1 = 0;
+	int speedDuration2 = 0;
+     8c0:	e3a0b000 	mov	r11, #0
+    int delayCount = 0;
+	int wallDelay = 20;
+	int wallCount = 0;
+	int speedTimer1 = 0;
+	int speedTimer2 = 0;
+	int speedDuration1 = 0;
+     8c4:	e58db048 	str	r11, [sp, #72]	; 0x48
+    int delay = 3;         //number of frames before the players actually move
+    int delayCount = 0;
+	int wallDelay = 20;
+	int wallCount = 0;
+	int speedTimer1 = 0;
+	int speedTimer2 = 0;
+     8c8:	e58db038 	str	r11, [sp, #56]	; 0x38
+	
+    int delay = 3;         //number of frames before the players actually move
+    int delayCount = 0;
+	int wallDelay = 20;
+	int wallCount = 0;
+	int speedTimer1 = 0;
+     8cc:	e58db034 	str	r11, [sp, #52]	; 0x34
+	bool p2OFB = false;
+	
+    int delay = 3;         //number of frames before the players actually move
+    int delayCount = 0;
+	int wallDelay = 20;
+	int wallCount = 0;
+     8d0:	e58db050 	str	r11, [sp, #80]	; 0x50
+    bool newGameNeeded = true;
+    bool p1OFB = false;
+	bool p2OFB = false;
+	
+    int delay = 3;         //number of frames before the players actually move
+    int delayCount = 0;
+     8d4:	e58db030 	str	r11, [sp, #48]	; 0x30
+	
+    int gameLength;
+    int color1, color2;         //color for each player
+    bool newGameNeeded = true;
+    bool p1OFB = false;
+	bool p2OFB = false;
+     8d8:	e58db044 	str	r11, [sp, #68]	; 0x44
+	y2 = 120;
+	
+    int gameLength;
+    int color1, color2;         //color for each player
+    bool newGameNeeded = true;
+    bool p1OFB = false;
+     8dc:	e58db040 	str	r11, [sp, #64]	; 0x40
+	x2 = 220;
+	y2 = 120;
+	
+    int gameLength;
+    int color1, color2;         //color for each player
+    bool newGameNeeded = true;
+     8e0:	e3a00001 	mov	r0, #1
+     8e4:	e58d005c 	str	r0, [sp, #92]	; 0x5c
+        for (int j=0; j<240 ; j++) 
+            grid[i][j] = 0;   //reset the grid
+    int x1, y1, x2, y2, xleft, xright, ylower, yupper;  //position variables for the two players
+    int dx1, dy1, dx2, dy2;     //direction vectors for both players
+    int p1score = 0;		//p1 out of bounds, p2 etc.
+    int p2score = 0;
+     8e8:	e58db018 	str	r11, [sp, #24]
+	for(int i=0 ; i<320 ; i++) 
+        for (int j=0; j<240 ; j++) 
+            grid[i][j] = 0;   //reset the grid
+    int x1, y1, x2, y2, xleft, xright, ylower, yupper;  //position variables for the two players
+    int dx1, dy1, dx2, dy2;     //direction vectors for both players
+    int p1score = 0;		//p1 out of bounds, p2 etc.
+     8ec:	e58db014 	str	r11, [sp, #20]
+    int p2score = 0;
+    
+	x1 = 100;     
+	y1 = 120;
+	x2 = 220;
+	y2 = 120;
+     8f0:	e3a08078 	mov	r8, #120	; 0x78
+    int p1score = 0;		//p1 out of bounds, p2 etc.
+    int p2score = 0;
+    
+	x1 = 100;     
+	y1 = 120;
+	x2 = 220;
+     8f4:	e3a070dc 	mov	r7, #220	; 0xdc
+    int dx1, dy1, dx2, dy2;     //direction vectors for both players
+    int p1score = 0;		//p1 out of bounds, p2 etc.
+    int p2score = 0;
+    
+	x1 = 100;     
+	y1 = 120;
+     8f8:	e1a0a008 	mov	r10, r8
+    int x1, y1, x2, y2, xleft, xright, ylower, yupper;  //position variables for the two players
+    int dx1, dy1, dx2, dy2;     //direction vectors for both players
+    int p1score = 0;		//p1 out of bounds, p2 etc.
+    int p2score = 0;
+    
+	x1 = 100;     
+     8fc:	e3a06064 	mov	r6, #100	; 0x64
+		else if(grid[x1][y1]==1 | p1OFB) { p2score++; newGameNeeded = true; }
+		else if(grid[x2][y2]==1 | p2OFB) { p1score++; newGameNeeded = true; }
+		
+        if(newGameNeeded){
+			while(1){
+				if(*(key_ptr+3) !=0){
+     900:	e1a0500b 	mov	r5, r11
+     904:	e34f5f20 	movt	r5, #65312	; 0xff20
+					*(key_ptr+3) = 0b1111;
+					break;
+				}
+			}
+			
+			*ledr_ptr = 0b0000000000;
+     908:	e1a0400b 	mov	r4, r11
+            if(p2score >= gameLength){
+				while(1){
+				}
+			}
+			
+			clear_screen(0,21, 323, 243);
+     90c:	e58db04c 	str	r11, [sp, #76]	; 0x4c
+     910:	e59db058 	ldr	r11, [sp, #88]	; 0x58
+			break;
+		}
+	}
+		
+    while(1){
+		if(x1>xright | x1<xleft | y1 >yupper | y1 <ylower) p1OFB = true;
+     914:	e59d1020 	ldr	r1, [sp, #32]
+     918:	e1560001 	cmp	r6, r1
+     91c:	d3a03000 	movle	r3, #0
+     920:	c3a03001 	movgt	r3, #1
+     924:	e59d201c 	ldr	r2, [sp, #28]
+     928:	e1560002 	cmp	r6, r2
+     92c:	b3833001 	orrlt	r3, r3, #1
+     930:	e59dc028 	ldr	r12, [sp, #40]	; 0x28
+     934:	e15a000c 	cmp	r10, r12
+     938:	c3833001 	orrgt	r3, r3, #1
+     93c:	e59de024 	ldr	lr, [sp, #36]	; 0x24
+     940:	e15a000e 	cmp	r10, lr
+     944:	b3833001 	orrlt	r3, r3, #1
+     948:	e59d0040 	ldr	r0, [sp, #64]	; 0x40
+     94c:	e3530000 	cmp	r3, #0
+     950:	13a00001 	movne	r0, #1
+     954:	e58d0040 	str	r0, [sp, #64]	; 0x40
+		if(x2>xright | x2<xleft | y2 >yupper | y2 <ylower) p2OFB = true;
+     958:	e1570001 	cmp	r7, r1
+     95c:	d3a03000 	movle	r3, #0
+     960:	c3a03001 	movgt	r3, #1
+     964:	e1570002 	cmp	r7, r2
+     968:	b3833001 	orrlt	r3, r3, #1
+     96c:	e158000c 	cmp	r8, r12
+     970:	c3833001 	orrgt	r3, r3, #1
+     974:	e158000e 	cmp	r8, lr
+     978:	b3833001 	orrlt	r3, r3, #1
+     97c:	e59d1044 	ldr	r1, [sp, #68]	; 0x44
+     980:	e3530000 	cmp	r3, #0
+     984:	13a01001 	movne	r1, #1
+     988:	e58d1044 	str	r1, [sp, #68]	; 0x44
+	
+		if((grid[x1][y1]==1 & grid[x2][y2]==1) | (p1OFB & p2OFB) | (x1 == x2 & y1 == y2)) { newGameNeeded = true; }
+     98c:	e0663206 	rsb	r3, r6, r6, lsl #4
+     990:	e28d2b4b 	add	r2, sp, #76800	; 0x12c00
+     994:	e2822060 	add	r2, r2, #96	; 0x60
+     998:	e0823203 	add	r3, r2, r3, lsl #4
+     99c:	e083300a 	add	r3, r3, r10
+     9a0:	e2433b4b 	sub	r3, r3, #76800	; 0x12c00
+     9a4:	e5d32000 	ldrb	r2, [r3]
+     9a8:	e0673207 	rsb	r3, r7, r7, lsl #4
+     9ac:	e28dcb4b 	add	r12, sp, #76800	; 0x12c00
+     9b0:	e28cc060 	add	r12, r12, #96	; 0x60
+     9b4:	e08c3203 	add	r3, r12, r3, lsl #4
+     9b8:	e0833008 	add	r3, r3, r8
+     9bc:	e2433b4b 	sub	r3, r3, #76800	; 0x12c00
+     9c0:	e5d33000 	ldrb	r3, [r3]
+     9c4:	e15a0008 	cmp	r10, r8
+     9c8:	01560007 	cmpeq	r6, r7
+     9cc:	13a00000 	movne	r0, #0
+     9d0:	03a00001 	moveq	r0, #1
+     9d4:	e0031002 	and	r1, r3, r2
+     9d8:	e1801001 	orr	r1, r0, r1
+     9dc:	e59de044 	ldr	lr, [sp, #68]	; 0x44
+     9e0:	e59dc040 	ldr	r12, [sp, #64]	; 0x40
+     9e4:	e00e000c 	and	r0, lr, r12
+     9e8:	e6ef0070 	uxtb	r0, r0
+     9ec:	e1900001 	orrs	r0, r0, r1
+     9f0:	1a00000f 	bne	a34 <main+0x60c>
+		else if(grid[x1][y1]==1 | p1OFB) { p2score++; newGameNeeded = true; }
+     9f4:	e6ef107c 	uxtb	r1, r12
+     9f8:	e1911002 	orrs	r1, r1, r2
+     9fc:	159de018 	ldrne	lr, [sp, #24]
+     a00:	128ee001 	addne	lr, lr, #1
+     a04:	158de018 	strne	lr, [sp, #24]
+     a08:	1a000009 	bne	a34 <main+0x60c>
+		else if(grid[x2][y2]==1 | p2OFB) { p1score++; newGameNeeded = true; }
+     a0c:	e59d0044 	ldr	r0, [sp, #68]	; 0x44
+     a10:	e6ef2070 	uxtb	r2, r0
+     a14:	e1922003 	orrs	r2, r2, r3
+     a18:	159d1014 	ldrne	r1, [sp, #20]
+     a1c:	12811001 	addne	r1, r1, #1
+     a20:	158d1014 	strne	r1, [sp, #20]
+     a24:	1a000002 	bne	a34 <main+0x60c>
+		
+        if(newGameNeeded){
+     a28:	e59d205c 	ldr	r2, [sp, #92]	; 0x5c
+     a2c:	e3520000 	cmp	r2, #0
+     a30:	0a0000ad 	beq	cec <main+0x8c4>
+			while(1){
+				if(*(key_ptr+3) !=0){
+     a34:	e595305c 	ldr	r3, [r5, #92]	; 0x5c
+     a38:	e3530000 	cmp	r3, #0
+     a3c:	0afffffc 	beq	a34 <main+0x60c>
+					*(key_ptr+3) = 0b1111;
+     a40:	e3a0300f 	mov	r3, #15
+     a44:	e585305c 	str	r3, [r5, #92]	; 0x5c
+					break;
+				}
+			}
+			
+			*ledr_ptr = 0b0000000000;
+     a48:	e5854000 	str	r4, [r5]
+            if(p1score == 1){
+     a4c:	e59dc014 	ldr	r12, [sp, #20]
+     a50:	e35c0001 	cmp	r12, #1
+     a54:	1a000009 	bne	a80 <main+0x658>
+				*ledr_ptr = 0b1000000000;
+     a58:	e3a03c02 	mov	r3, #512	; 0x200
+     a5c:	e5853000 	str	r3, [r5]
+				draw_line(6, 5, 6, 15, 0xFFFF);
+     a60:	e30f3fff 	movw	r3, #65535	; 0xffff
+     a64:	e58d3000 	str	r3, [sp]
+     a68:	e3a00006 	mov	r0, #6
+     a6c:	e3a01005 	mov	r1, #5
+     a70:	e1a02000 	mov	r2, r0
+     a74:	e3a0300f 	mov	r3, #15
+     a78:	ebfffe28 	bl	320 <draw_line>
+     a7c:	ea000025 	b	b18 <main+0x6f0>
+			}
+            else if(p1score == 2){
+     a80:	e59de014 	ldr	lr, [sp, #20]
+     a84:	e35e0002 	cmp	lr, #2
+     a88:	1a000009 	bne	ab4 <main+0x68c>
+				*ledr_ptr = 0b1100000000;
+     a8c:	e3a03c03 	mov	r3, #768	; 0x300
+     a90:	e5853000 	str	r3, [r5]
+				draw_line(10, 5, 10, 15, 0xFFFF);
+     a94:	e30f3fff 	movw	r3, #65535	; 0xffff
+     a98:	e58d3000 	str	r3, [sp]
+     a9c:	e3a0000a 	mov	r0, #10
+     aa0:	e3a01005 	mov	r1, #5
+     aa4:	e1a02000 	mov	r2, r0
+     aa8:	e3a0300f 	mov	r3, #15
+     aac:	ebfffe1b 	bl	320 <draw_line>
+     ab0:	ea000018 	b	b18 <main+0x6f0>
+			}
+            else if(p1score == 3){
+     ab4:	e59d0014 	ldr	r0, [sp, #20]
+     ab8:	e3500003 	cmp	r0, #3
+     abc:	1a000009 	bne	ae8 <main+0x6c0>
+				*ledr_ptr = 0b1110000000;
+     ac0:	e3a03d0e 	mov	r3, #896	; 0x380
+     ac4:	e5853000 	str	r3, [r5]
+				draw_line(14, 5, 14, 15, 0xFFFF);
+     ac8:	e30f3fff 	movw	r3, #65535	; 0xffff
+     acc:	e58d3000 	str	r3, [sp]
+     ad0:	e3a0000e 	mov	r0, #14
+     ad4:	e3a01005 	mov	r1, #5
+     ad8:	e1a02000 	mov	r2, r0
+     adc:	e3a0300f 	mov	r3, #15
+     ae0:	ebfffe0e 	bl	320 <draw_line>
+     ae4:	ea00000b 	b	b18 <main+0x6f0>
+			}
+			else if(p1score == 4){ 
+     ae8:	e59d1014 	ldr	r1, [sp, #20]
+     aec:	e3510004 	cmp	r1, #4
+     af0:	1a000008 	bne	b18 <main+0x6f0>
+				*ledr_ptr = 0b1111000000;
+     af4:	e3a03d0f 	mov	r3, #960	; 0x3c0
+     af8:	e5853000 	str	r3, [r5]
+				draw_line(18, 5, 18, 15, 0xFFFF);
+     afc:	e30f3fff 	movw	r3, #65535	; 0xffff
+     b00:	e58d3000 	str	r3, [sp]
+     b04:	e3a00012 	mov	r0, #18
+     b08:	e3a01005 	mov	r1, #5
+     b0c:	e1a02000 	mov	r2, r0
+     b10:	e3a0300f 	mov	r3, #15
+     b14:	ebfffe01 	bl	320 <draw_line>
+			}
+			if(p2score == 1){
+     b18:	e59d2018 	ldr	r2, [sp, #24]
+     b1c:	e3520001 	cmp	r2, #1
+     b20:	1a00000a 	bne	b50 <main+0x728>
+				getLEDR = *ledr_ptr; 
+     b24:	e5953000 	ldr	r3, [r5]
+                getLEDR += 0b1;
+     b28:	e2833001 	add	r3, r3, #1
+                *ledr_ptr = getLEDR;
+     b2c:	e5853000 	str	r3, [r5]
+				draw_line(312, 5, 312, 15, 0xFFFF);
+     b30:	e30f3fff 	movw	r3, #65535	; 0xffff
+     b34:	e58d3000 	str	r3, [sp]
+     b38:	e3a00f4e 	mov	r0, #312	; 0x138
+     b3c:	e3a01005 	mov	r1, #5
+     b40:	e1a02000 	mov	r2, r0
+     b44:	e3a0300f 	mov	r3, #15
+     b48:	ebfffdf4 	bl	320 <draw_line>
+     b4c:	ea000028 	b	bf4 <main+0x7cc>
+			}
+            else if(p2score == 2){ 
+     b50:	e59d3018 	ldr	r3, [sp, #24]
+     b54:	e3530002 	cmp	r3, #2
+     b58:	1a00000a 	bne	b88 <main+0x760>
+                getLEDR = *ledr_ptr; 
+     b5c:	e5953000 	ldr	r3, [r5]
+                getLEDR += 0b11;
+     b60:	e2833003 	add	r3, r3, #3
+                *ledr_ptr = getLEDR;
+     b64:	e5853000 	str	r3, [r5]
+				draw_line(308, 5, 308, 15, 0xFFFF);
+     b68:	e30f3fff 	movw	r3, #65535	; 0xffff
+     b6c:	e58d3000 	str	r3, [sp]
+     b70:	e3a00f4d 	mov	r0, #308	; 0x134
+     b74:	e3a01005 	mov	r1, #5
+     b78:	e1a02000 	mov	r2, r0
+     b7c:	e3a0300f 	mov	r3, #15
+     b80:	ebfffde6 	bl	320 <draw_line>
+     b84:	ea00001a 	b	bf4 <main+0x7cc>
+            }
+            else if(p2score == 3){
+     b88:	e59dc018 	ldr	r12, [sp, #24]
+     b8c:	e35c0003 	cmp	r12, #3
+     b90:	1a00000a 	bne	bc0 <main+0x798>
+                getLEDR = *ledr_ptr; 
+     b94:	e5953000 	ldr	r3, [r5]
+                getLEDR += 0b111;
+     b98:	e2833007 	add	r3, r3, #7
+                *ledr_ptr = getLEDR;
+     b9c:	e5853000 	str	r3, [r5]
+				draw_line(304, 5, 304, 15, 0xFFFF);
+     ba0:	e30f3fff 	movw	r3, #65535	; 0xffff
+     ba4:	e58d3000 	str	r3, [sp]
+     ba8:	e3a00e13 	mov	r0, #304	; 0x130
+     bac:	e3a01005 	mov	r1, #5
+     bb0:	e1a02000 	mov	r2, r0
+     bb4:	e3a0300f 	mov	r3, #15
+     bb8:	ebfffdd8 	bl	320 <draw_line>
+     bbc:	ea00000c 	b	bf4 <main+0x7cc>
+			}
+			else if(p2score == 4){
+     bc0:	e59de018 	ldr	lr, [sp, #24]
+     bc4:	e35e0004 	cmp	lr, #4
+     bc8:	1a000009 	bne	bf4 <main+0x7cc>
+                getLEDR = *ledr_ptr; 
+     bcc:	e5953000 	ldr	r3, [r5]
+                getLEDR += 0b1111;
+     bd0:	e283300f 	add	r3, r3, #15
+                *ledr_ptr = getLEDR;
+     bd4:	e5853000 	str	r3, [r5]
+				draw_line(300, 5, 300, 15, 0xFFFF);
+     bd8:	e30f3fff 	movw	r3, #65535	; 0xffff
+     bdc:	e58d3000 	str	r3, [sp]
+     be0:	e3a00f4b 	mov	r0, #300	; 0x12c
+     be4:	e3a01005 	mov	r1, #5
+     be8:	e1a02000 	mov	r2, r0
+     bec:	e3a0300f 	mov	r3, #15
+     bf0:	ebfffdca 	bl	320 <draw_line>
+			}
+			
+			if(p1score >= gameLength){
+     bf4:	e59d003c 	ldr	r0, [sp, #60]	; 0x3c
+     bf8:	e59d1014 	ldr	r1, [sp, #20]
+     bfc:	e1500001 	cmp	r0, r1
+     c00:	ca000000 	bgt	c08 <main+0x7e0>
+     c04:	eafffffe 	b	c04 <main+0x7dc>
+				while(1){
+				}
+			}
+            if(p2score >= gameLength){
+     c08:	e59d203c 	ldr	r2, [sp, #60]	; 0x3c
+     c0c:	e59d3018 	ldr	r3, [sp, #24]
+     c10:	e1520003 	cmp	r2, r3
+     c14:	ca000000 	bgt	c1c <main+0x7f4>
+     c18:	eafffffe 	b	c18 <main+0x7f0>
+				while(1){
+				}
+			}
+			
+			clear_screen(0,21, 323, 243);
+     c1c:	e1a00004 	mov	r0, r4
+     c20:	e3a01015 	mov	r1, #21
+     c24:	e3002143 	movw	r2, #323	; 0x143
+     c28:	e3a030f3 	mov	r3, #243	; 0xf3
+     c2c:	ebfffd9e 	bl	2ac <clear_screen>
+     c30:	e28d2060 	add	r2, sp, #96	; 0x60
+     c34:	ea000007 	b	c58 <main+0x830>
+			
+			p1OFB = false;
+			p2OFB = false;
+			for(int i=0 ; i<320 ; i++) 
+				for (int j=0; j<240 ; j++) 
+					grid[i][j] = 0;   //reset the grid
+     c38:	e7c24003 	strb	r4, [r2, r3]
+			clear_screen(0,21, 323, 243);
+			
+			p1OFB = false;
+			p2OFB = false;
+			for(int i=0 ; i<320 ; i++) 
+				for (int j=0; j<240 ; j++) 
+     c3c:	e2833001 	add	r3, r3, #1
+     c40:	e35300f0 	cmp	r3, #240	; 0xf0
+     c44:	1afffffb 	bne	c38 <main+0x810>
+     c48:	e28220f0 	add	r2, r2, #240	; 0xf0
+			
+			clear_screen(0,21, 323, 243);
+			
+			p1OFB = false;
+			p2OFB = false;
+			for(int i=0 ; i<320 ; i++) 
+     c4c:	e59dc008 	ldr	r12, [sp, #8]
+     c50:	e152000c 	cmp	r2, r12
+     c54:	0a000001 	beq	c60 <main+0x838>
+		}
+	}
+		
+    while(1){
+		if(x1>xright | x1<xleft | y1 >yupper | y1 <ylower) p1OFB = true;
+		if(x2>xright | x2<xleft | y2 >yupper | y2 <ylower) p2OFB = true;
+     c58:	e1a03004 	mov	r3, r4
+     c5c:	eafffff5 	b	c38 <main+0x810>
+			xleft = 0;
+			xright = 319;
+			ylower = 21;
+			yupper = 239;
+			
+			plot_pixel(x1, y1, color1);   
+     c60:	e3a00064 	mov	r0, #100	; 0x64
+     c64:	e3a01078 	mov	r1, #120	; 0x78
+     c68:	e59de054 	ldr	lr, [sp, #84]	; 0x54
+     c6c:	e6bf207e 	sxth	r2, lr
+     c70:	ebfffd86 	bl	290 <plot_pixel>
+            plot_pixel(x2, y2, color2);
+     c74:	e3a000dc 	mov	r0, #220	; 0xdc
+     c78:	e3a01078 	mov	r1, #120	; 0x78
+     c7c:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
+     c80:	e6bf2073 	sxth	r2, r3
+     c84:	ebfffd81 	bl	290 <plot_pixel>
+			
+			wait_for_vsync();
+     c88:	ebfffd73 	bl	25c <wait_for_vsync>
+			
+			while(1){
+				if(*(key_ptr+3)!=0){				//will wait here until key is pressed
+     c8c:	e595305c 	ldr	r3, [r5, #92]	; 0x5c
+     c90:	e3530000 	cmp	r3, #0
+     c94:	0afffffc 	beq	c8c <main+0x864>
+					*(key_ptr+3) = 0b1111; 
+     c98:	e3a0c00f 	mov	r12, #15
+     c9c:	e585c05c 	str	r12, [r5, #92]	; 0x5c
+			}
+			
+			clear_screen(0,21, 323, 243);
+			
+			p1OFB = false;
+			p2OFB = false;
+     ca0:	e58d4044 	str	r4, [sp, #68]	; 0x44
+				}
+			}
+			
+			clear_screen(0,21, 323, 243);
+			
+			p1OFB = false;
+     ca4:	e58d4040 	str	r4, [sp, #64]	; 0x40
+					*(key_ptr+3) = 0b1111; 
+					break;
+				}
+			}
+			
+			newGameNeeded = false;
+     ca8:	e58d405c 	str	r4, [sp, #92]	; 0x5c
+			x2 = 220;
+			y2 = 120;
+			dx1 = 1;       //players are both going towards eachother at the start of the game
+			dy1 = 0; 
+			dx2 = -1;   
+			dy2 = 0;
+     cac:	e1a09004 	mov	r9, r4
+			y1 = 120;
+			x2 = 220;
+			y2 = 120;
+			dx1 = 1;       //players are both going towards eachother at the start of the game
+			dy1 = 0; 
+			dx2 = -1;   
+     cb0:	e3e0e000 	mvn	lr, #0
+     cb4:	e58de010 	str	lr, [sp, #16]
+			x1 = 100;      //players are positioned symmetrically near the center of the screen
+			y1 = 120;
+			x2 = 220;
+			y2 = 120;
+			dx1 = 1;       //players are both going towards eachother at the start of the game
+			dy1 = 0; 
+     cb8:	e58d400c 	str	r4, [sp, #12]
+				
+			x1 = 100;      //players are positioned symmetrically near the center of the screen
+			y1 = 120;
+			x2 = 220;
+			y2 = 120;
+			dx1 = 1;       //players are both going towards eachother at the start of the game
+     cbc:	e3a0b001 	mov	r11, #1
+			dx2 = -1;   
+			dy2 = 0;
+			xleft = 0;
+			xright = 319;
+			ylower = 21;
+			yupper = 239;
+     cc0:	e3a000ef 	mov	r0, #239	; 0xef
+     cc4:	e58d0028 	str	r0, [sp, #40]	; 0x28
+			dy1 = 0; 
+			dx2 = -1;   
+			dy2 = 0;
+			xleft = 0;
+			xright = 319;
+			ylower = 21;
+     cc8:	e3a01015 	mov	r1, #21
+     ccc:	e58d1024 	str	r1, [sp, #36]	; 0x24
+			dx1 = 1;       //players are both going towards eachother at the start of the game
+			dy1 = 0; 
+			dx2 = -1;   
+			dy2 = 0;
+			xleft = 0;
+			xright = 319;
+     cd0:	e300213f 	movw	r2, #319	; 0x13f
+     cd4:	e58d2020 	str	r2, [sp, #32]
+			y2 = 120;
+			dx1 = 1;       //players are both going towards eachother at the start of the game
+			dy1 = 0; 
+			dx2 = -1;   
+			dy2 = 0;
+			xleft = 0;
+     cd8:	e58d401c 	str	r4, [sp, #28]
+					grid[i][j] = 0;   //reset the grid
+				
+			x1 = 100;      //players are positioned symmetrically near the center of the screen
+			y1 = 120;
+			x2 = 220;
+			y2 = 120;
+     cdc:	e3a08078 	mov	r8, #120	; 0x78
+				for (int j=0; j<240 ; j++) 
+					grid[i][j] = 0;   //reset the grid
+				
+			x1 = 100;      //players are positioned symmetrically near the center of the screen
+			y1 = 120;
+			x2 = 220;
+     ce0:	e3a070dc 	mov	r7, #220	; 0xdc
+			for(int i=0 ; i<320 ; i++) 
+				for (int j=0; j<240 ; j++) 
+					grid[i][j] = 0;   //reset the grid
+				
+			x1 = 100;      //players are positioned symmetrically near the center of the screen
+			y1 = 120;
+     ce4:	e1a0a008 	mov	r10, r8
+			p2OFB = false;
+			for(int i=0 ; i<320 ; i++) 
+				for (int j=0; j<240 ; j++) 
+					grid[i][j] = 0;   //reset the grid
+				
+			x1 = 100;      //players are positioned symmetrically near the center of the screen
+     ce8:	e3a06064 	mov	r6, #100	; 0x64
+			
+			newGameNeeded = false;
+        }
+        
+        //player 2 is playing on the right side, player 1 is on the left near the switches
+        if((*(key_ptr+3) & 0x4) == 4){    //player 2 is trying to turn right
+     cec:	e595305c 	ldr	r3, [r5, #92]	; 0x5c
+     cf0:	e3130004 	tst	r3, #4
+     cf4:	0a000018 	beq	d5c <main+0x934>
+            if(dx1==1){ dx1=0; dy1=1; }
+     cf8:	e35b0001 	cmp	r11, #1
+     cfc:	0a000007 	beq	d20 <main+0x8f8>
+            else if(dy1==1) { dy1=0; dx1=-1; }
+     d00:	e59d300c 	ldr	r3, [sp, #12]
+     d04:	e3530001 	cmp	r3, #1
+     d08:	0a000008 	beq	d30 <main+0x908>
+            else if(dx1==-1){ dx1=0; dy1=-1; }
+     d0c:	e37b0001 	cmn	r11, #1
+     d10:	0a000009 	beq	d3c <main+0x914>
+            else if(dy1==-1){ dy1=0; dx1=1; }
+     d14:	e3730001 	cmn	r3, #1
+     d18:	1a00000d 	bne	d54 <main+0x92c>
+     d1c:	ea00000a 	b	d4c <main+0x924>
+			newGameNeeded = false;
+        }
+        
+        //player 2 is playing on the right side, player 1 is on the left near the switches
+        if((*(key_ptr+3) & 0x4) == 4){    //player 2 is trying to turn right
+            if(dx1==1){ dx1=0; dy1=1; }
+     d20:	e3a0c001 	mov	r12, #1
+     d24:	e58dc00c 	str	r12, [sp, #12]
+     d28:	e1a0b004 	mov	r11, r4
+     d2c:	ea000008 	b	d54 <main+0x92c>
+            else if(dy1==1) { dy1=0; dx1=-1; }
+     d30:	e58d400c 	str	r4, [sp, #12]
+     d34:	e3e0b000 	mvn	r11, #0
+     d38:	ea000005 	b	d54 <main+0x92c>
+            else if(dx1==-1){ dx1=0; dy1=-1; }
+     d3c:	e3e0e000 	mvn	lr, #0
+     d40:	e58de00c 	str	lr, [sp, #12]
+     d44:	e1a0b004 	mov	r11, r4
+     d48:	ea000001 	b	d54 <main+0x92c>
+            else if(dy1==-1){ dy1=0; dx1=1; }
+     d4c:	e58d400c 	str	r4, [sp, #12]
+     d50:	e3a0b001 	mov	r11, #1
+			*(key_ptr+3) = 0b0100;
+     d54:	e3a03004 	mov	r3, #4
+     d58:	e585305c 	str	r3, [r5, #92]	; 0x5c
+        }         
+        if((*(key_ptr+3) & 0x8) == 8){    //player 2 is trying to turn left
+     d5c:	e595305c 	ldr	r3, [r5, #92]	; 0x5c
+     d60:	e3130008 	tst	r3, #8
+     d64:	0a000018 	beq	dcc <main+0x9a4>
+            if(dy1==1){ dy1=0; dx1=1; }
+     d68:	e59d000c 	ldr	r0, [sp, #12]
+     d6c:	e3500001 	cmp	r0, #1
+     d70:	0a000006 	beq	d90 <main+0x968>
+            else if(dx1==1){ dx1=0; dy1=-1; }
+     d74:	e35b0001 	cmp	r11, #1
+     d78:	0a000007 	beq	d9c <main+0x974>
+            else if(dy1==-1) { dy1=0; dx1=-1; }
+     d7c:	e3700001 	cmn	r0, #1
+     d80:	0a000009 	beq	dac <main+0x984>
+            else if(dx1==-1){ dx1=0; dy1=1; }
+     d84:	e37b0001 	cmn	r11, #1
+     d88:	1a00000d 	bne	dc4 <main+0x99c>
+     d8c:	ea000009 	b	db8 <main+0x990>
+            else if(dx1==-1){ dx1=0; dy1=-1; }
+            else if(dy1==-1){ dy1=0; dx1=1; }
+			*(key_ptr+3) = 0b0100;
+        }         
+        if((*(key_ptr+3) & 0x8) == 8){    //player 2 is trying to turn left
+            if(dy1==1){ dy1=0; dx1=1; }
+     d90:	e58d400c 	str	r4, [sp, #12]
+     d94:	e3a0b001 	mov	r11, #1
+     d98:	ea000009 	b	dc4 <main+0x99c>
+            else if(dx1==1){ dx1=0; dy1=-1; }
+     d9c:	e3e01000 	mvn	r1, #0
+     da0:	e58d100c 	str	r1, [sp, #12]
+     da4:	e1a0b004 	mov	r11, r4
+     da8:	ea000005 	b	dc4 <main+0x99c>
+            else if(dy1==-1) { dy1=0; dx1=-1; }
+     dac:	e58d400c 	str	r4, [sp, #12]
+     db0:	e3e0b000 	mvn	r11, #0
+     db4:	ea000002 	b	dc4 <main+0x99c>
+            else if(dx1==-1){ dx1=0; dy1=1; }
+     db8:	e3a02001 	mov	r2, #1
+     dbc:	e58d200c 	str	r2, [sp, #12]
+     dc0:	e1a0b004 	mov	r11, r4
+			*(key_ptr+3) = 0b1000;			
+     dc4:	e3a03008 	mov	r3, #8
+     dc8:	e585305c 	str	r3, [r5, #92]	; 0x5c
+        }
+        if((*(key_ptr+3) & 0x1) == 1){    //player 1 is trying to turn right
+     dcc:	e595305c 	ldr	r3, [r5, #92]	; 0x5c
+     dd0:	e3130001 	tst	r3, #1
+     dd4:	0a000018 	beq	e3c <main+0xa14>
+            if(dx2==1){ dx2=0; dy2=1; }
+     dd8:	e59d3010 	ldr	r3, [sp, #16]
+     ddc:	e3530001 	cmp	r3, #1
+     de0:	0a000006 	beq	e00 <main+0x9d8>
+            else if(dy2==1) { dy2=0; dx2=-1; }
+     de4:	e3590001 	cmp	r9, #1
+     de8:	0a000007 	beq	e0c <main+0x9e4>
+            else if(dx2==-1){ dx2=0; dy2=-1; }
+     dec:	e3730001 	cmn	r3, #1
+     df0:	0a000009 	beq	e1c <main+0x9f4>
+            else if(dy2==-1){ dy2=0; dx2=1; }
+     df4:	e3790001 	cmn	r9, #1
+     df8:	1a00000d 	bne	e34 <main+0xa0c>
+     dfc:	ea000009 	b	e28 <main+0xa00>
+            else if(dy1==-1) { dy1=0; dx1=-1; }
+            else if(dx1==-1){ dx1=0; dy1=1; }
+			*(key_ptr+3) = 0b1000;			
+        }
+        if((*(key_ptr+3) & 0x1) == 1){    //player 1 is trying to turn right
+            if(dx2==1){ dx2=0; dy2=1; }
+     e00:	e3a09001 	mov	r9, #1
+     e04:	e58d4010 	str	r4, [sp, #16]
+     e08:	ea000009 	b	e34 <main+0xa0c>
+            else if(dy2==1) { dy2=0; dx2=-1; }
+     e0c:	e1a09004 	mov	r9, r4
+     e10:	e3e0c000 	mvn	r12, #0
+     e14:	e58dc010 	str	r12, [sp, #16]
+     e18:	ea000005 	b	e34 <main+0xa0c>
+            else if(dx2==-1){ dx2=0; dy2=-1; }
+     e1c:	e3e09000 	mvn	r9, #0
+     e20:	e58d4010 	str	r4, [sp, #16]
+     e24:	ea000002 	b	e34 <main+0xa0c>
+            else if(dy2==-1){ dy2=0; dx2=1; }
+     e28:	e1a09004 	mov	r9, r4
+     e2c:	e3a0e001 	mov	lr, #1
+     e30:	e58de010 	str	lr, [sp, #16]
+			*(key_ptr+3) = 0b0001;
+     e34:	e3a03001 	mov	r3, #1
+     e38:	e585305c 	str	r3, [r5, #92]	; 0x5c
+			}
+        if((*(key_ptr+3) & 0x2) == 2){    //player 1 is trying to turn left
+     e3c:	e595305c 	ldr	r3, [r5, #92]	; 0x5c
+     e40:	e3130002 	tst	r3, #2
+     e44:	0a000018 	beq	eac <main+0xa84>
+            if(dy2==1){ dy2=0; dx2=1; }
+     e48:	e3590001 	cmp	r9, #1
+     e4c:	0a000007 	beq	e70 <main+0xa48>
+            else if(dx2==1){ dx2=0; dy2=-1; }
+     e50:	e59d0010 	ldr	r0, [sp, #16]
+     e54:	e3500001 	cmp	r0, #1
+     e58:	0a000008 	beq	e80 <main+0xa58>
+            else if(dy2==-1) { dy2=0; dx2=-1; }
+     e5c:	e3790001 	cmn	r9, #1
+     e60:	0a000009 	beq	e8c <main+0xa64>
+            else if(dx2==-1){ dx2=0; dy2=1; }
+     e64:	e3700001 	cmn	r0, #1
+     e68:	1a00000d 	bne	ea4 <main+0xa7c>
+     e6c:	ea00000a 	b	e9c <main+0xa74>
+            else if(dx2==-1){ dx2=0; dy2=-1; }
+            else if(dy2==-1){ dy2=0; dx2=1; }
+			*(key_ptr+3) = 0b0001;
+			}
+        if((*(key_ptr+3) & 0x2) == 2){    //player 1 is trying to turn left
+            if(dy2==1){ dy2=0; dx2=1; }
+     e70:	e1a09004 	mov	r9, r4
+     e74:	e3a01001 	mov	r1, #1
+     e78:	e58d1010 	str	r1, [sp, #16]
+     e7c:	ea000008 	b	ea4 <main+0xa7c>
+            else if(dx2==1){ dx2=0; dy2=-1; }
+     e80:	e3e09000 	mvn	r9, #0
+     e84:	e58d4010 	str	r4, [sp, #16]
+     e88:	ea000005 	b	ea4 <main+0xa7c>
+            else if(dy2==-1) { dy2=0; dx2=-1; }
+     e8c:	e1a09004 	mov	r9, r4
+     e90:	e3e02000 	mvn	r2, #0
+     e94:	e58d2010 	str	r2, [sp, #16]
+     e98:	ea000001 	b	ea4 <main+0xa7c>
+            else if(dx2==-1){ dx2=0; dy2=1; }
+     e9c:	e3a09001 	mov	r9, #1
+     ea0:	e58d4010 	str	r4, [sp, #16]
+			*(key_ptr+3) = 0b0010;
+     ea4:	e3a03002 	mov	r3, #2
+     ea8:	e585305c 	str	r3, [r5, #92]	; 0x5c
+        }
+        
+		if((*sw_ptr & 0x200) == 0x200){
+     eac:	e5953040 	ldr	r3, [r5, #64]	; 0x40
+     eb0:	e3130c02 	tst	r3, #512	; 0x200
+     eb4:	0a00002d 	beq	f70 <main+0xb48>
+			wallCount++;
+     eb8:	e59d3050 	ldr	r3, [sp, #80]	; 0x50
+     ebc:	e2833001 	add	r3, r3, #1
+     ec0:	e58d3050 	str	r3, [sp, #80]	; 0x50
+			if(wallCount == wallDelay){
+     ec4:	e3530014 	cmp	r3, #20
+     ec8:	1a000028 	bne	f70 <main+0xb48>
+				draw_line(xleft, 21, xleft, 239, 0x5555);
+     ecc:	e305c555 	movw	r12, #21845	; 0x5555
+     ed0:	e58dc000 	str	r12, [sp]
+     ed4:	e59d001c 	ldr	r0, [sp, #28]
+     ed8:	e3a01015 	mov	r1, #21
+     edc:	e1a02000 	mov	r2, r0
+     ee0:	e3a030ef 	mov	r3, #239	; 0xef
+     ee4:	ebfffd0d 	bl	320 <draw_line>
+				draw_line(xright, 21, xright, 239, 0x5555);
+     ee8:	e305e555 	movw	lr, #21845	; 0x5555
+     eec:	e58de000 	str	lr, [sp]
+     ef0:	e59d0020 	ldr	r0, [sp, #32]
+     ef4:	e3a01015 	mov	r1, #21
+     ef8:	e1a02000 	mov	r2, r0
+     efc:	e3a030ef 	mov	r3, #239	; 0xef
+     f00:	ebfffd06 	bl	320 <draw_line>
+				draw_line(0, ylower, 319, ylower, 0x5555);
+     f04:	e3050555 	movw	r0, #21845	; 0x5555
+     f08:	e58d0000 	str	r0, [sp]
+     f0c:	e1a00004 	mov	r0, r4
+     f10:	e59d1024 	ldr	r1, [sp, #36]	; 0x24
+     f14:	e300213f 	movw	r2, #319	; 0x13f
+     f18:	e1a03001 	mov	r3, r1
+     f1c:	ebfffcff 	bl	320 <draw_line>
+				draw_line(0, yupper, 319, yupper, 0x5555);
+     f20:	e3051555 	movw	r1, #21845	; 0x5555
+     f24:	e58d1000 	str	r1, [sp]
+     f28:	e1a00004 	mov	r0, r4
+     f2c:	e59d1028 	ldr	r1, [sp, #40]	; 0x28
+     f30:	e300213f 	movw	r2, #319	; 0x13f
+     f34:	e1a03001 	mov	r3, r1
+     f38:	ebfffcf8 	bl	320 <draw_line>
+				wallCount = 0;
+				xleft++;
+     f3c:	e59d201c 	ldr	r2, [sp, #28]
+     f40:	e2822001 	add	r2, r2, #1
+     f44:	e58d201c 	str	r2, [sp, #28]
+				xright--;
+     f48:	e59d3020 	ldr	r3, [sp, #32]
+     f4c:	e2433001 	sub	r3, r3, #1
+     f50:	e58d3020 	str	r3, [sp, #32]
+				yupper--;
+     f54:	e59dc028 	ldr	r12, [sp, #40]	; 0x28
+     f58:	e24cc001 	sub	r12, r12, #1
+     f5c:	e58dc028 	str	r12, [sp, #40]	; 0x28
+				ylower++;
+     f60:	e59de024 	ldr	lr, [sp, #36]	; 0x24
+     f64:	e28ee001 	add	lr, lr, #1
+     f68:	e58de024 	str	lr, [sp, #36]	; 0x24
+			if(wallCount == wallDelay){
+				draw_line(xleft, 21, xleft, 239, 0x5555);
+				draw_line(xright, 21, xright, 239, 0x5555);
+				draw_line(0, ylower, 319, ylower, 0x5555);
+				draw_line(0, yupper, 319, yupper, 0x5555);
+				wallCount = 0;
+     f6c:	e58d4050 	str	r4, [sp, #80]	; 0x50
+				xright--;
+				yupper--;
+				ylower++;
+			}
+		}
+		if(((*sw_ptr & 0x100) == 0x100) & speedTimer1 == 0){
+     f70:	e5952040 	ldr	r2, [r5, #64]	; 0x40
+     f74:	e59d0034 	ldr	r0, [sp, #52]	; 0x34
+     f78:	e2703001 	rsbs	r3, r0, #1
+     f7c:	33a03000 	movcc	r3, #0
+     f80:	e0033422 	and	r3, r3, r2, lsr #8
+			speedDuration1 = 20;
+     f84:	e59d1048 	ldr	r1, [sp, #72]	; 0x48
+     f88:	e3530000 	cmp	r3, #0
+     f8c:	13a01014 	movne	r1, #20
+     f90:	e58d1048 	str	r1, [sp, #72]	; 0x48
+     f94:	e3530000 	cmp	r3, #0
+     f98:	13a00064 	movne	r0, #100	; 0x64
+     f9c:	e58d0034 	str	r0, [sp, #52]	; 0x34
+			speedTimer1 = 100;
+		}
+		if(((*sw_ptr & 0x1) == 0x1) & speedTimer2 == 0){
+     fa0:	e5953040 	ldr	r3, [r5, #64]	; 0x40
+     fa4:	e59d2038 	ldr	r2, [sp, #56]	; 0x38
+     fa8:	e3520000 	cmp	r2, #0
+     fac:	13a03000 	movne	r3, #0
+     fb0:	02033001 	andeq	r3, r3, #1
+			speedDuration2 = 20;
+     fb4:	e59dc04c 	ldr	r12, [sp, #76]	; 0x4c
+     fb8:	e3530000 	cmp	r3, #0
+     fbc:	13a0c014 	movne	r12, #20
+     fc0:	e58dc04c 	str	r12, [sp, #76]	; 0x4c
+     fc4:	e3530000 	cmp	r3, #0
+     fc8:	13a02064 	movne	r2, #100	; 0x64
+     fcc:	e58d2038 	str	r2, [sp, #56]	; 0x38
+			speedTimer2 = 100;
+		}
+
+		
+        delayCount++;
+     fd0:	e59de030 	ldr	lr, [sp, #48]	; 0x30
+     fd4:	e28ee001 	add	lr, lr, #1
+     fd8:	e58de030 	str	lr, [sp, #48]	; 0x30
+		if(delayCount == delay/2 & speedDuration1!=0){
+     fdc:	e35e0001 	cmp	lr, #1
+     fe0:	13a00000 	movne	r0, #0
+     fe4:	03a00001 	moveq	r0, #1
+     fe8:	e58d0058 	str	r0, [sp, #88]	; 0x58
+     fec:	e1a03000 	mov	r3, r0
+     ff0:	e3510000 	cmp	r1, #0
+     ff4:	03a03000 	moveq	r3, #0
+     ff8:	12033001 	andne	r3, r3, #1
+     ffc:	e3530000 	cmp	r3, #0
+    1000:	0a00001c 	beq	1078 <main+0xc50>
+			grid[x1][y1] = 1;   //mark the pixel as traveled
+    1004:	e0663206 	rsb	r3, r6, r6, lsl #4
+    1008:	e28d1b4b 	add	r1, sp, #76800	; 0x12c00
+    100c:	e2811060 	add	r1, r1, #96	; 0x60
+    1010:	e0813203 	add	r3, r1, r3, lsl #4
+    1014:	e083300a 	add	r3, r3, r10
+    1018:	e2433b4b 	sub	r3, r3, #76800	; 0x12c00
+    101c:	e3a02001 	mov	r2, #1
+    1020:	e5c32000 	strb	r2, [r3]
+			plot_pixel(x1, y1, color1);
+    1024:	e1a00006 	mov	r0, r6
+    1028:	e1a0100a 	mov	r1, r10
+    102c:	e59d3054 	ldr	r3, [sp, #84]	; 0x54
+    1030:	e6bf2073 	sxth	r2, r3
+    1034:	ebfffc95 	bl	290 <plot_pixel>
+
+			if (dx1==1) x1++;           //update p1 position
+    1038:	e35b0001 	cmp	r11, #1
+    103c:	02866001 	addeq	r6, r6, #1
+    1040:	0a000009 	beq	106c <main+0xc44>
+            else if (dx1==-1) x1--;
+    1044:	e37b0001 	cmn	r11, #1
+    1048:	02466001 	subeq	r6, r6, #1
+    104c:	0a000006 	beq	106c <main+0xc44>
+            else if (dy1==1) y1++;
+    1050:	e59dc00c 	ldr	r12, [sp, #12]
+    1054:	e35c0001 	cmp	r12, #1
+    1058:	028aa001 	addeq	r10, r10, #1
+    105c:	0a000002 	beq	106c <main+0xc44>
+            else if (dy1==-1) y1--;
+    1060:	e59de00c 	ldr	lr, [sp, #12]
+    1064:	e37e0001 	cmn	lr, #1
+    1068:	024aa001 	subeq	r10, r10, #1
+			
+			speedDuration1--;
+    106c:	e59d0048 	ldr	r0, [sp, #72]	; 0x48
+    1070:	e2400001 	sub	r0, r0, #1
+    1074:	e58d0048 	str	r0, [sp, #72]	; 0x48
+		}
+		if(delayCount == delay/2 & speedDuration2!=0){
+    1078:	e59d3058 	ldr	r3, [sp, #88]	; 0x58
+    107c:	e59d104c 	ldr	r1, [sp, #76]	; 0x4c
+    1080:	e3510000 	cmp	r1, #0
+    1084:	03a03000 	moveq	r3, #0
+    1088:	12033001 	andne	r3, r3, #1
+    108c:	e3530000 	cmp	r3, #0
+    1090:	0a00001c 	beq	1108 <main+0xce0>
+			grid[x2][y2] = 1;   //mark the pixel as traveled
+    1094:	e0673207 	rsb	r3, r7, r7, lsl #4
+    1098:	e28d2b4b 	add	r2, sp, #76800	; 0x12c00
+    109c:	e2822060 	add	r2, r2, #96	; 0x60
+    10a0:	e0823203 	add	r3, r2, r3, lsl #4
+    10a4:	e0833008 	add	r3, r3, r8
+    10a8:	e2433b4b 	sub	r3, r3, #76800	; 0x12c00
+    10ac:	e3a02001 	mov	r2, #1
+    10b0:	e5c32000 	strb	r2, [r3]
+			plot_pixel(x2, y2, color2);
+    10b4:	e1a00007 	mov	r0, r7
+    10b8:	e1a01008 	mov	r1, r8
+    10bc:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
+    10c0:	e6bf2073 	sxth	r2, r3
+    10c4:	ebfffc71 	bl	290 <plot_pixel>
+			
+			if (dx2==1) x2++;           //update p2 position
+    10c8:	e59dc010 	ldr	r12, [sp, #16]
+    10cc:	e35c0001 	cmp	r12, #1
+    10d0:	02877001 	addeq	r7, r7, #1
+    10d4:	0a000008 	beq	10fc <main+0xcd4>
+            else if (dx2==-1) x2--;
+    10d8:	e59de010 	ldr	lr, [sp, #16]
+    10dc:	e37e0001 	cmn	lr, #1
+    10e0:	02477001 	subeq	r7, r7, #1
+    10e4:	0a000004 	beq	10fc <main+0xcd4>
+            else if (dy2==1) y2++;
+    10e8:	e3590001 	cmp	r9, #1
+    10ec:	02888001 	addeq	r8, r8, #1
+    10f0:	0a000001 	beq	10fc <main+0xcd4>
+            else if (dy2==-1) y2--;
+    10f4:	e3790001 	cmn	r9, #1
+    10f8:	02488001 	subeq	r8, r8, #1
+			
+			speedDuration2--;
+    10fc:	e59d004c 	ldr	r0, [sp, #76]	; 0x4c
+    1100:	e2400001 	sub	r0, r0, #1
+    1104:	e58d004c 	str	r0, [sp, #76]	; 0x4c
+		}
+        if(delayCount == delay){
+    1108:	e59d1030 	ldr	r1, [sp, #48]	; 0x30
+    110c:	e3510003 	cmp	r1, #3
+    1110:	1a00003b 	bne	1204 <main+0xddc>
+			
+			grid[x1][y1] = 1;   //mark the pixel as traveled
+    1114:	e0662206 	rsb	r2, r6, r6, lsl #4
+    1118:	e28d3b4b 	add	r3, sp, #76800	; 0x12c00
+    111c:	e2833060 	add	r3, r3, #96	; 0x60
+    1120:	e0832202 	add	r2, r3, r2, lsl #4
+    1124:	e082200a 	add	r2, r2, r10
+    1128:	e2422b4b 	sub	r2, r2, #76800	; 0x12c00
+    112c:	e3a03001 	mov	r3, #1
+    1130:	e5c23000 	strb	r3, [r2]
+            grid[x2][y2] = 1;
+    1134:	e0672207 	rsb	r2, r7, r7, lsl #4
+    1138:	e28dcb4b 	add	r12, sp, #76800	; 0x12c00
+    113c:	e28cc060 	add	r12, r12, #96	; 0x60
+    1140:	e08c2202 	add	r2, r12, r2, lsl #4
+    1144:	e0822008 	add	r2, r2, r8
+    1148:	e2422b4b 	sub	r2, r2, #76800	; 0x12c00
+    114c:	e5c23000 	strb	r3, [r2]
+			
+			plot_pixel(x1, y1, color1);     //draw the new pixels
+    1150:	e1a00006 	mov	r0, r6
+    1154:	e1a0100a 	mov	r1, r10
+    1158:	e59de054 	ldr	lr, [sp, #84]	; 0x54
+    115c:	e6bf207e 	sxth	r2, lr
+    1160:	ebfffc4a 	bl	290 <plot_pixel>
+            plot_pixel(x2, y2, color2);
+    1164:	e1a00007 	mov	r0, r7
+    1168:	e1a01008 	mov	r1, r8
+    116c:	e59d302c 	ldr	r3, [sp, #44]	; 0x2c
+    1170:	e6bf2073 	sxth	r2, r3
+    1174:	ebfffc45 	bl	290 <plot_pixel>
+			
+			if (dx1==1) x1++;           //update p1 position
+    1178:	e35b0001 	cmp	r11, #1
+    117c:	02866001 	addeq	r6, r6, #1
+    1180:	0a000009 	beq	11ac <main+0xd84>
+            else if (dx1==-1) x1--;
+    1184:	e37b0001 	cmn	r11, #1
+    1188:	02466001 	subeq	r6, r6, #1
+    118c:	0a000006 	beq	11ac <main+0xd84>
+            else if (dy1==1) y1++;
+    1190:	e59dc00c 	ldr	r12, [sp, #12]
+    1194:	e35c0001 	cmp	r12, #1
+    1198:	028aa001 	addeq	r10, r10, #1
+    119c:	0a000002 	beq	11ac <main+0xd84>
+            else if (dy1==-1) y1--;
+    11a0:	e59de00c 	ldr	lr, [sp, #12]
+    11a4:	e37e0001 	cmn	lr, #1
+    11a8:	024aa001 	subeq	r10, r10, #1
+            if (dx2==1) x2++;           //update p2 position
+    11ac:	e59d0010 	ldr	r0, [sp, #16]
+    11b0:	e3500001 	cmp	r0, #1
+    11b4:	02877001 	addeq	r7, r7, #1
+    11b8:	0a000008 	beq	11e0 <main+0xdb8>
+            else if (dx2==-1) x2--;
+    11bc:	e59d1010 	ldr	r1, [sp, #16]
+    11c0:	e3710001 	cmn	r1, #1
+    11c4:	02477001 	subeq	r7, r7, #1
+    11c8:	0a000004 	beq	11e0 <main+0xdb8>
+            else if (dy2==1) y2++;
+    11cc:	e3590001 	cmp	r9, #1
+    11d0:	02888001 	addeq	r8, r8, #1
+    11d4:	0a000001 	beq	11e0 <main+0xdb8>
+            else if (dy2==-1) y2--;
+    11d8:	e3790001 	cmn	r9, #1
+    11dc:	02488001 	subeq	r8, r8, #1
+			
+			delayCount = 0;
+			if(speedTimer1!=0) speedTimer1--;
+    11e0:	e59d2034 	ldr	r2, [sp, #52]	; 0x34
+    11e4:	e3520000 	cmp	r2, #0
+    11e8:	12422001 	subne	r2, r2, #1
+    11ec:	158d2034 	strne	r2, [sp, #52]	; 0x34
+			if(speedTimer2!=0) speedTimer2--;
+    11f0:	e59d3038 	ldr	r3, [sp, #56]	; 0x38
+    11f4:	e3530000 	cmp	r3, #0
+    11f8:	12433001 	subne	r3, r3, #1
+    11fc:	158d3038 	strne	r3, [sp, #56]	; 0x38
+            if (dx2==1) x2++;           //update p2 position
+            else if (dx2==-1) x2--;
+            else if (dy2==1) y2++;
+            else if (dy2==-1) y2--;
+			
+			delayCount = 0;
+    1200:	e58d4030 	str	r4, [sp, #48]	; 0x30
+			if(speedTimer1!=0) speedTimer1--;
+			if(speedTimer2!=0) speedTimer2--;
+        }
+        wait_for_vsync();
+    1204:	ebfffc14 	bl	25c <wait_for_vsync>
+    }
+    1208:	eafffdc1 	b	914 <main+0x4ec>
+
+0000120c <atexit>:
+    120c:	e1a01000 	mov	r1, r0
+    1210:	e3a00000 	mov	r0, #0
+    1214:	e92d4008 	push	{r3, lr}
+    1218:	e1a02000 	mov	r2, r0
+    121c:	e1a03000 	mov	r3, r0
+    1220:	eb00000e 	bl	1260 <__register_exitproc>
+    1224:	e8bd4008 	pop	{r3, lr}
+    1228:	e12fff1e 	bx	lr
+
+0000122c <exit>:
+    122c:	e92d4008 	push	{r3, lr}
+    1230:	e3a01000 	mov	r1, #0
+    1234:	e1a04000 	mov	r4, r0
+    1238:	eb000045 	bl	1354 <__call_exitprocs>
+    123c:	e59f3018 	ldr	r3, [pc, #24]	; 125c <exit+0x30>
+    1240:	e5930000 	ldr	r0, [r3]
+    1244:	e590303c 	ldr	r3, [r0, #60]	; 0x3c
+    1248:	e3530000 	cmp	r3, #0
+    124c:	11a0e00f 	movne	lr, pc
+    1250:	112fff13 	bxne	r3
+    1254:	e1a00004 	mov	r0, r4
+    1258:	eb0000c9 	bl	1584 <_exit>
+    125c:	00001644 	.word	0x00001644
+
+00001260 <__register_exitproc>:
+    1260:	e59fc0e4 	ldr	r12, [pc, #228]	; 134c <__register_exitproc+0xec>
+    1264:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+    1268:	e59c4000 	ldr	r4, [r12]
+    126c:	e594c148 	ldr	r12, [r4, #328]	; 0x148
+    1270:	e35c0000 	cmp	r12, #0
+    1274:	0284cf53 	addeq	r12, r4, #332	; 0x14c
+    1278:	e59c5004 	ldr	r5, [r12, #4]
+    127c:	0584c148 	streq	r12, [r4, #328]	; 0x148
+    1280:	e355001f 	cmp	r5, #31
+    1284:	e24dd010 	sub	sp, sp, #16
+    1288:	e1a06000 	mov	r6, r0
+    128c:	da000015 	ble	12e8 <__register_exitproc+0x88>
+    1290:	e59f00b8 	ldr	r0, [pc, #184]	; 1350 <__register_exitproc+0xf0>
+    1294:	e3500000 	cmp	r0, #0
+    1298:	1a000001 	bne	12a4 <__register_exitproc+0x44>
+    129c:	e3e00000 	mvn	r0, #0
+    12a0:	ea000018 	b	1308 <__register_exitproc+0xa8>
+    12a4:	e3a00e19 	mov	r0, #400	; 0x190
+    12a8:	e58d100c 	str	r1, [sp, #12]
+    12ac:	e58d2008 	str	r2, [sp, #8]
+    12b0:	e58d3004 	str	r3, [sp, #4]
+    12b4:	e320f000 	nop	{0}
+    12b8:	e250c000 	subs	r12, r0, #0
+    12bc:	e59d100c 	ldr	r1, [sp, #12]
+    12c0:	e59d2008 	ldr	r2, [sp, #8]
+    12c4:	e59d3004 	ldr	r3, [sp, #4]
+    12c8:	0afffff3 	beq	129c <__register_exitproc+0x3c>
+    12cc:	e5945148 	ldr	r5, [r4, #328]	; 0x148
+    12d0:	e3a00000 	mov	r0, #0
+    12d4:	e58c0004 	str	r0, [r12, #4]
+    12d8:	e58c5000 	str	r5, [r12]
+    12dc:	e584c148 	str	r12, [r4, #328]	; 0x148
+    12e0:	e58c0188 	str	r0, [r12, #392]	; 0x188
+    12e4:	e58c018c 	str	r0, [r12, #396]	; 0x18c
+    12e8:	e3560000 	cmp	r6, #0
+    12ec:	e59c4004 	ldr	r4, [r12, #4]
+    12f0:	1a000007 	bne	1314 <__register_exitproc+0xb4>
+    12f4:	e2843002 	add	r3, r4, #2
+    12f8:	e2844001 	add	r4, r4, #1
+    12fc:	e78c1103 	str	r1, [r12, r3, lsl #2]
+    1300:	e58c4004 	str	r4, [r12, #4]
+    1304:	e3a00000 	mov	r0, #0
+    1308:	e28dd010 	add	sp, sp, #16
+    130c:	e8bd41f0 	pop	{r4, r5, r6, r7, r8, lr}
+    1310:	e12fff1e 	bx	lr
+    1314:	e3a00001 	mov	r0, #1
+    1318:	e1a00410 	lsl	r0, r0, r4
+    131c:	e08c8104 	add	r8, r12, r4, lsl #2
+    1320:	e3560002 	cmp	r6, #2
+    1324:	e59c7188 	ldr	r7, [r12, #392]	; 0x188
+    1328:	e5883108 	str	r3, [r8, #264]	; 0x108
+    132c:	059c318c 	ldreq	r3, [r12, #396]	; 0x18c
+    1330:	e1877000 	orr	r7, r7, r0
+    1334:	01830000 	orreq	r0, r3, r0
+    1338:	e1a05008 	mov	r5, r8
+    133c:	e5882088 	str	r2, [r8, #136]	; 0x88
+    1340:	e58c7188 	str	r7, [r12, #392]	; 0x188
+    1344:	058c018c 	streq	r0, [r12, #396]	; 0x18c
+    1348:	eaffffe9 	b	12f4 <__register_exitproc+0x94>
+    134c:	00001644 	.word	0x00001644
+    1350:	00000000 	.word	0x00000000
+
+00001354 <__call_exitprocs>:
+    1354:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    1358:	e59f3168 	ldr	r3, [pc, #360]	; 14c8 <__call_exitprocs+0x174>
+    135c:	e5933000 	ldr	r3, [r3]
+    1360:	e24dd014 	sub	sp, sp, #20
+    1364:	e58d3004 	str	r3, [sp, #4]
+    1368:	e2833f52 	add	r3, r3, #328	; 0x148
+    136c:	e58d0008 	str	r0, [sp, #8]
+    1370:	e58d300c 	str	r3, [sp, #12]
+    1374:	e1a07001 	mov	r7, r1
+    1378:	e3a08001 	mov	r8, #1
+    137c:	e59d3004 	ldr	r3, [sp, #4]
+    1380:	e5936148 	ldr	r6, [r3, #328]	; 0x148
+    1384:	e3560000 	cmp	r6, #0
+    1388:	e59db00c 	ldr	r11, [sp, #12]
+    138c:	0a000033 	beq	1460 <__call_exitprocs+0x10c>
+    1390:	e5965004 	ldr	r5, [r6, #4]
+    1394:	e2554001 	subs	r4, r5, #1
+    1398:	5286a088 	addpl	r10, r6, #136	; 0x88
+    139c:	5285501f 	addpl	r5, r5, #31
+    13a0:	508a5105 	addpl	r5, r10, r5, lsl #2
+    13a4:	5a000007 	bpl	13c8 <__call_exitprocs+0x74>
+    13a8:	ea000029 	b	1454 <__call_exitprocs+0x100>
+    13ac:	e5953000 	ldr	r3, [r5]
+    13b0:	e1530007 	cmp	r3, r7
+    13b4:	0a000005 	beq	13d0 <__call_exitprocs+0x7c>
+    13b8:	e2444001 	sub	r4, r4, #1
+    13bc:	e3740001 	cmn	r4, #1
+    13c0:	e2455004 	sub	r5, r5, #4
+    13c4:	0a000022 	beq	1454 <__call_exitprocs+0x100>
+    13c8:	e3570000 	cmp	r7, #0
+    13cc:	1afffff6 	bne	13ac <__call_exitprocs+0x58>
+    13d0:	e5963004 	ldr	r3, [r6, #4]
+    13d4:	e06a2005 	rsb	r2, r10, r5
+    13d8:	e2433001 	sub	r3, r3, #1
+    13dc:	e0862002 	add	r2, r6, r2
+    13e0:	e1530004 	cmp	r3, r4
+    13e4:	e5123078 	ldr	r3, [r2, #-120]	; 0xffffff88
+    13e8:	13a01000 	movne	r1, #0
+    13ec:	05864004 	streq	r4, [r6, #4]
+    13f0:	15021078 	strne	r1, [r2, #-120]	; 0xffffff88
+    13f4:	e3530000 	cmp	r3, #0
+    13f8:	0affffee 	beq	13b8 <__call_exitprocs+0x64>
+    13fc:	e1a02418 	lsl	r2, r8, r4
+    1400:	e5961188 	ldr	r1, [r6, #392]	; 0x188
+    1404:	e1120001 	tst	r2, r1
+    1408:	e5969004 	ldr	r9, [r6, #4]
+    140c:	0a000016 	beq	146c <__call_exitprocs+0x118>
+    1410:	e596118c 	ldr	r1, [r6, #396]	; 0x18c
+    1414:	e1120001 	tst	r2, r1
+    1418:	1a000016 	bne	1478 <__call_exitprocs+0x124>
+    141c:	e59d0008 	ldr	r0, [sp, #8]
+    1420:	e5151080 	ldr	r1, [r5, #-128]	; 0xffffff80
+    1424:	e1a0e00f 	mov	lr, pc
+    1428:	e12fff13 	bx	r3
+    142c:	e5963004 	ldr	r3, [r6, #4]
+    1430:	e1530009 	cmp	r3, r9
+    1434:	1affffd0 	bne	137c <__call_exitprocs+0x28>
+    1438:	e59b3000 	ldr	r3, [r11]
+    143c:	e1530006 	cmp	r3, r6
+    1440:	1affffcd 	bne	137c <__call_exitprocs+0x28>
+    1444:	e2444001 	sub	r4, r4, #1
+    1448:	e3740001 	cmn	r4, #1
+    144c:	e2455004 	sub	r5, r5, #4
+    1450:	1affffdc 	bne	13c8 <__call_exitprocs+0x74>
+    1454:	e59f1070 	ldr	r1, [pc, #112]	; 14cc <__call_exitprocs+0x178>
+    1458:	e3510000 	cmp	r1, #0
+    145c:	1a000009 	bne	1488 <__call_exitprocs+0x134>
+    1460:	e28dd014 	add	sp, sp, #20
+    1464:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    1468:	e12fff1e 	bx	lr
+    146c:	e1a0e00f 	mov	lr, pc
+    1470:	e12fff13 	bx	r3
+    1474:	eaffffec 	b	142c <__call_exitprocs+0xd8>
+    1478:	e5150080 	ldr	r0, [r5, #-128]	; 0xffffff80
+    147c:	e1a0e00f 	mov	lr, pc
+    1480:	e12fff13 	bx	r3
+    1484:	eaffffe8 	b	142c <__call_exitprocs+0xd8>
+    1488:	e5963004 	ldr	r3, [r6, #4]
+    148c:	e3530000 	cmp	r3, #0
+    1490:	e5963000 	ldr	r3, [r6]
+    1494:	1a000008 	bne	14bc <__call_exitprocs+0x168>
+    1498:	e3530000 	cmp	r3, #0
+    149c:	0a000006 	beq	14bc <__call_exitprocs+0x168>
+    14a0:	e1a00006 	mov	r0, r6
+    14a4:	e58b3000 	str	r3, [r11]
+    14a8:	e320f000 	nop	{0}
+    14ac:	e59b6000 	ldr	r6, [r11]
+    14b0:	e3560000 	cmp	r6, #0
+    14b4:	1affffb5 	bne	1390 <__call_exitprocs+0x3c>
+    14b8:	eaffffe8 	b	1460 <__call_exitprocs+0x10c>
+    14bc:	e1a0b006 	mov	r11, r6
+    14c0:	e1a06003 	mov	r6, r3
+    14c4:	eafffff9 	b	14b0 <__call_exitprocs+0x15c>
+    14c8:	00001644 	.word	0x00001644
+    14cc:	00000000 	.word	0x00000000
+
+000014d0 <register_fini>:
+    14d0:	e92d4008 	push	{r3, lr}
+    14d4:	e59f3010 	ldr	r3, [pc, #16]	; 14ec <register_fini+0x1c>
+    14d8:	e3530000 	cmp	r3, #0
+    14dc:	159f000c 	ldrne	r0, [pc, #12]	; 14f0 <register_fini+0x20>
+    14e0:	1bffff49 	blne	120c <atexit>
+    14e4:	e8bd4008 	pop	{r3, lr}
+    14e8:	e12fff1e 	bx	lr
+    14ec:	0000166c 	.word	0x0000166c
+    14f0:	000014f4 	.word	0x000014f4
+
+000014f4 <__libc_fini_array>:
+    14f4:	e92d4038 	push	{r3, r4, r5, lr}
+    14f8:	e59f5030 	ldr	r5, [pc, #48]	; 1530 <__libc_fini_array+0x3c>
+    14fc:	e59f4030 	ldr	r4, [pc, #48]	; 1534 <__libc_fini_array+0x40>
+    1500:	e0654004 	rsb	r4, r5, r4
+    1504:	e1b04144 	asrs	r4, r4, #2
+    1508:	10855104 	addne	r5, r5, r4, lsl #2
+    150c:	0a000004 	beq	1524 <__libc_fini_array+0x30>
+    1510:	e5353004 	ldr	r3, [r5, #-4]!
+    1514:	e1a0e00f 	mov	lr, pc
+    1518:	e12fff13 	bx	r3
+    151c:	e2544001 	subs	r4, r4, #1
+    1520:	1afffffa 	bne	1510 <__libc_fini_array+0x1c>
+    1524:	eb000050 	bl	166c <__libc_fini>
+    1528:	e8bd4038 	pop	{r3, r4, r5, lr}
+    152c:	e12fff1e 	bx	lr
+    1530:	00001684 	.word	0x00001684
+    1534:	00001688 	.word	0x00001688
+
+00001538 <__cs3_premain>:
+    1538:	e92d4008 	push	{r3, lr}
+    153c:	eb00001d 	bl	15b8 <__libc_init_array>
+    1540:	e59f3030 	ldr	r3, [pc, #48]	; 1578 <__cs3_premain+0x40>
+    1544:	e3530000 	cmp	r3, #0
+    1548:	15930000 	ldrne	r0, [r3]
+    154c:	01a00003 	moveq	r0, r3
+    1550:	e59f3024 	ldr	r3, [pc, #36]	; 157c <__cs3_premain+0x44>
+    1554:	e3530000 	cmp	r3, #0
+    1558:	15931000 	ldrne	r1, [r3]
+    155c:	01a01003 	moveq	r1, r3
+    1560:	e3a02000 	mov	r2, #0
+    1564:	ebfffbaf 	bl	428 <main>
+    1568:	e59f3010 	ldr	r3, [pc, #16]	; 1580 <__cs3_premain+0x48>
+    156c:	e3530000 	cmp	r3, #0
+    1570:	1bffff2d 	blne	122c <exit>
+    1574:	eafffffe 	b	1574 <__cs3_premain+0x3c>
+	...
+    1580:	0000122c 	.word	0x0000122c
+
+00001584 <_exit>:
+    1584:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+    1588:	e3a00018 	mov	r0, #24
+    158c:	e59f1004 	ldr	r1, [pc, #4]	; 1598 <_exit+0x14>
+    1590:	ef123456 	svc	0x00123456
+    1594:	eafffffe 	b	1594 <_exit+0x10>
+    1598:	00020026 	.word	0x00020026
+
+0000159c <__cs3_isr_interrupt>:
+    159c:	eafffffe 	b	159c <__cs3_isr_interrupt>
+
+000015a0 <__cs3_isr_undef>:
+    15a0:	eafffffe 	b	15a0 <__cs3_isr_undef>
+
+000015a4 <__cs3_isr_swi>:
+    15a4:	eafffffe 	b	15a4 <__cs3_isr_swi>
+
+000015a8 <__cs3_isr_pabort>:
+    15a8:	eafffffe 	b	15a8 <__cs3_isr_pabort>
+
+000015ac <__cs3_isr_dabort>:
+    15ac:	eafffffe 	b	15ac <__cs3_isr_dabort>
+
+000015b0 <__cs3_isr_irq>:
+    15b0:	eafffffe 	b	15b0 <__cs3_isr_irq>
+
+000015b4 <__cs3_isr_fiq>:
+    15b4:	eafffffe 	b	15b4 <__cs3_isr_fiq>
+
+000015b8 <__libc_init_array>:
+    15b8:	e92d4070 	push	{r4, r5, r6, lr}
+    15bc:	e59f506c 	ldr	r5, [pc, #108]	; 1630 <__libc_init_array+0x78>
+    15c0:	e59f606c 	ldr	r6, [pc, #108]	; 1634 <__libc_init_array+0x7c>
+    15c4:	e0656006 	rsb	r6, r5, r6
+    15c8:	e1b06146 	asrs	r6, r6, #2
+    15cc:	12455004 	subne	r5, r5, #4
+    15d0:	13a04000 	movne	r4, #0
+    15d4:	0a000005 	beq	15f0 <__libc_init_array+0x38>
+    15d8:	e5b53004 	ldr	r3, [r5, #4]!
+    15dc:	e2844001 	add	r4, r4, #1
+    15e0:	e1a0e00f 	mov	lr, pc
+    15e4:	e12fff13 	bx	r3
+    15e8:	e1560004 	cmp	r6, r4
+    15ec:	1afffff9 	bne	15d8 <__libc_init_array+0x20>
+    15f0:	e59f5040 	ldr	r5, [pc, #64]	; 1638 <__libc_init_array+0x80>
+    15f4:	e59f6040 	ldr	r6, [pc, #64]	; 163c <__libc_init_array+0x84>
+    15f8:	e0656006 	rsb	r6, r5, r6
+    15fc:	eb000012 	bl	164c <_init>
+    1600:	e1b06146 	asrs	r6, r6, #2
+    1604:	12455004 	subne	r5, r5, #4
+    1608:	13a04000 	movne	r4, #0
+    160c:	0a000005 	beq	1628 <__libc_init_array+0x70>
+    1610:	e5b53004 	ldr	r3, [r5, #4]!
+    1614:	e2844001 	add	r4, r4, #1
+    1618:	e1a0e00f 	mov	lr, pc
+    161c:	e12fff13 	bx	r3
+    1620:	e1560004 	cmp	r6, r4
+    1624:	1afffff9 	bne	1610 <__libc_init_array+0x58>
+    1628:	e8bd4070 	pop	{r4, r5, r6, lr}
+    162c:	e12fff1e 	bx	lr
+    1630:	00001664 	.word	0x00001664
+    1634:	00001664 	.word	0x00001664
+    1638:	00001664 	.word	0x00001664
+    163c:	0000166c 	.word	0x0000166c
+
+Disassembly of section .rodata:
+
+00001644 <_global_impure_ptr>:
+    1644:	000016b0 00000043                       ....C...
+
+0000164c <_init>:
+    164c:	e1a0c00d 	mov	r12, sp
+    1650:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+    1654:	e24cb004 	sub	r11, r12, #4
+    1658:	e24bd028 	sub	sp, r11, #40	; 0x28
+    165c:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+    1660:	e12fff1e 	bx	lr
+
+00001664 <__init_array_start>:
+    1664:	000014d0 	.word	0x000014d0
+
+00001668 <__frame_dummy_init_array_entry>:
+    1668:	00000208                                ....
+
+0000166c <__libc_fini>:
+    166c:	e1a0c00d 	mov	r12, sp
+    1670:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+    1674:	e24cb004 	sub	r11, r12, #4
+    1678:	e24bd028 	sub	sp, r11, #40	; 0x28
+    167c:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+    1680:	e12fff1e 	bx	lr
+
+00001684 <__fini_array_start>:
+    1684:	000001c4 	.word	0x000001c4
+
+00001688 <__cs3_regions>:
+	...
+    1694:	00001ae0 	.word	0x00001ae0
+    1698:	00000020 	.word	0x00000020
+
+0000169c <__cs3_regions_end>:
+    169c:	00000000 	.word	0x00000000
