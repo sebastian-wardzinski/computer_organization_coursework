@@ -1,0 +1,166 @@
+
+D:/ece243/Lab 5/Lab53/part3.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.text
+.global _start
+
+_start:		
+		LDR R9, HEX_ADDRESS
+   0:	e59f90e4 	ldr	r9, [pc, #228]	; ec <HEX_ADDRESS>
+		LDR R10, EDGECAPTURE
+   4:	e59fa0e4 	ldr	r10, [pc, #228]	; f0 <EDGECAPTURE>
+            LDR R11, LOAD
+   8:	e59fb0e4 	ldr	r11, [pc, #228]	; f4 <LOAD>
+            LDR R5, DELAY
+   c:	e59f50ec 	ldr	r5, [pc, #236]	; 100 <DELAY>
+            STR R5, [R11]
+  10:	e58b5000 	str	r5, [r11]
+            LDR R11, CONTROL
+  14:	e59fb0dc 	ldr	r11, [pc, #220]	; f8 <CONTROL>
+            MOV R5, #3
+  18:	e3a05003 	mov	r5, #3
+            STRB R5, [R11]
+  1c:	e5cb5000 	strb	r5, [r11]
+            LDR R11, INTERUPT
+  20:	e59fb0d4 	ldr	r11, [pc, #212]	; fc <INTERUPT>
+            MOV R5, #0xf
+  24:	e3a0500f 	mov	r5, #15
+            STR R5, [R10]
+  28:	e58a5000 	str	r5, [r10]
+            MOV R5, #0
+  2c:	e3a05000 	mov	r5, #0
+
+00000030 <HEX>:
+            
+HEX:		BL 	COUNTER
+  30:	eb000015 	bl	8c <COUNTER>
+			ADD R5, #1
+  34:	e2855001 	add	r5, r5, #1
+            CMP R5, #0x64
+  38:	e3550064 	cmp	r5, #100	; 0x64
+            MOVEQ R5, #0
+  3c:	03a05000 	moveq	r5, #0
+            MOV R0, R5
+  40:	e1a00005 	mov	r0, r5
+            
+            BL DIVIDE		//r0 ones digit, r1 tens digit
+  44:	eb00001b 	bl	b8 <DIVIDE>
+            MOV R6, R0
+  48:	e1a06000 	mov	r6, r0
+            MOV R7, R1
+  4c:	e1a07001 	mov	r7, r1
+            
+            MOV R0, R6
+  50:	e1a00006 	mov	r0, r6
+            BL SEG7_CODE	//r0 input/ouput, r1 changed
+  54:	eb00001d 	bl	d0 <SEG7_CODE>
+            MOV R6, R0  
+  58:	e1a06000 	mov	r6, r0
+            MOV R0, R7
+  5c:	e1a00007 	mov	r0, r7
+            BL SEG7_CODE
+  60:	eb00001a 	bl	d0 <SEG7_CODE>
+            LSL R0, #8
+  64:	e1a00400 	lsl	r0, r0, #8
+            ORR R6, R0
+  68:	e1866000 	orr	r6, r6, r0
+            STR R6, [R9]
+  6c:	e5896000 	str	r6, [r9]
+            
+            MOV R8, #0
+  70:	e3a08000 	mov	r8, #0
+            LDRB R8, [R10]
+  74:	e5da8000 	ldrb	r8, [r10]
+            CMP R8, #0
+  78:	e3580000 	cmp	r8, #0
+            MOVNE R8, #0xf
+  7c:	13a0800f 	movne	r8, #15
+            STRNE R8, [R10]
+  80:	158a8000 	strne	r8, [r10]
+            BNE COUNT_OFF
+  84:	1a000005 	bne	a0 <COUNT_OFF>
+            B 	HEX
+  88:	eaffffe8 	b	30 <HEX>
+
+0000008c <COUNTER>:
+
+COUNTER:	LDR R0, [R11]
+  8c:	e59b0000 	ldr	r0, [r11]
+			CMP R0, #0
+  90:	e3500000 	cmp	r0, #0
+            BEQ COUNTER
+  94:	0afffffc 	beq	8c <COUNTER>
+            STR R0, [R11]
+  98:	e58b0000 	str	r0, [r11]
+            MOV	PC, LR
+  9c:	e1a0f00e 	mov	pc, lr
+
+000000a0 <COUNT_OFF>:
+            
+COUNT_OFF:	LDRB R8, [R10]
+  a0:	e5da8000 	ldrb	r8, [r10]
+			CMP R8, #0
+  a4:	e3580000 	cmp	r8, #0
+            MOVNE R8, #0xf
+  a8:	13a0800f 	movne	r8, #15
+            STRNE R8, [R10]
+  ac:	158a8000 	strne	r8, [r10]
+            BNE HEX
+  b0:	1affffde 	bne	30 <HEX>
+            B	COUNT_OFF
+  b4:	eafffff9 	b	a0 <COUNT_OFF>
+
+000000b8 <DIVIDE>:
+            
+DIVIDE: 	MOV R1, #0		
+  b8:	e3a01000 	mov	r1, #0
+
+000000bc <CONT>:
+CONT: 		CMP R0, #10			
+  bc:	e350000a 	cmp	r0, #10
+            MOVLT PC, LR 
+  c0:	b1a0f00e 	movlt	pc, lr
+            SUB R0, #10
+  c4:	e240000a 	sub	r0, r0, #10
+            ADD R1, #1
+  c8:	e2811001 	add	r1, r1, #1
+			B CONT	
+  cc:	eafffffa 	b	bc <CONT>
+
+000000d0 <SEG7_CODE>:
+            
+SEG7_CODE:  MOV     R1, #BIT_CODES  
+  d0:	e3a010e0 	mov	r1, #224	; 0xe0
+            ADD     R1, R0         // index into the BIT_CODES "array"
+  d4:	e0811000 	add	r1, r1, r0
+            LDRB    R0, [R1]       // load the bit pattern (to be returned)
+  d8:	e5d10000 	ldrb	r0, [r1]
+            MOV     PC, LR     
+  dc:	e1a0f00e 	mov	pc, lr
+
+000000e0 <BIT_CODES>:
+  e0:	4f5b063f 	.word	0x4f5b063f
+  e4:	077d6d66 	.word	0x077d6d66
+  e8:	0000677f 	.word	0x0000677f
+
+000000ec <HEX_ADDRESS>:
+  ec:	ff200020 	.word	0xff200020
+
+000000f0 <EDGECAPTURE>:
+  f0:	ff20005c 	.word	0xff20005c
+
+000000f4 <LOAD>:
+  f4:	fffec600 	.word	0xfffec600
+
+000000f8 <CONTROL>:
+  f8:	fffec608 	.word	0xfffec608
+
+000000fc <INTERUPT>:
+  fc:	fffec60c 	.word	0xfffec60c
+
+00000100 <DELAY>:
+ 100:	02faf080 	.word	0x02faf080

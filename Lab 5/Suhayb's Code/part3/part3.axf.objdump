@@ -1,0 +1,180 @@
+
+D:/ece243/Lab 5/Parts3&4/Lab5/Lab5/part3/part3.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.equ EDGE, 0xFF20005C
+.equ LOAD, 0xFFFEC600
+.equ CONTROL, 0xFFFEC608
+.equ F, 0xFFFEC60C
+_start:
+	MOV R4, #0 //counter value starts at 0
+   0:	e3a04000 	mov	r4, #0
+	MOV R3, #0xF //value to reset all four edge bits
+   4:	e3a0300f 	mov	r3, #15
+	LDR R2, =EDGE //get the address for edge capture
+   8:	e59f20f8 	ldr	r2, [pc, #248]	; 108 <BIT_CODES+0xc>
+	STR R3, [R2] //reset edge capture
+   c:	e5823000 	str	r3, [r2]
+	BL DISPLAY //display "0" on HEX
+  10:	eb00001e 	bl	90 <DISPLAY>
+
+00000014 <loop>:
+	
+loop:
+	BL DO_DELAY //wait 0.25 seconds
+  14:	eb00000a 	bl	44 <DO_DELAY>
+	ADD R4, #1 //increment counter value
+  18:	e2844001 	add	r4, r4, #1
+	BL DISPLAY //display counter value on HEX
+  1c:	eb00001b 	bl	90 <DISPLAY>
+	CMP R4, #99 //if counter has reached 99
+  20:	e3540063 	cmp	r4, #99	; 0x63
+	MOVEQ R4, #0 //then wrap around to 0
+  24:	03a04000 	moveq	r4, #0
+	
+	LDR R2, =EDGE //get the address for edge capture
+  28:	e59f20d8 	ldr	r2, [pc, #216]	; 108 <BIT_CODES+0xc>
+	LDR R3, [R2] //load edge capture
+  2c:	e5923000 	ldr	r3, [r2]
+	ANDS R3, #0xF //if edge capture is not 0
+  30:	e213300f 	ands	r3, r3, #15
+	MOVNE R3, #0xF //then get value to reset all four edge bits
+  34:	13a0300f 	movne	r3, #15
+	STRNE R3, [R2] //then reset edge capture
+  38:	15823000 	strne	r3, [r2]
+	BLNE waitForPress //then wait for the next edge
+  3c:	1b00000d 	blne	78 <waitForPress>
+	
+	B loop //loop forever
+  40:	eafffff3 	b	14 <loop>
+
+00000044 <DO_DELAY>:
+	
+DO_DELAY: 
+	LDR R0, =50000000 // delay counter start value
+  44:	e59f00c0 	ldr	r0, [pc, #192]	; 10c <BIT_CODES+0x10>
+	LDR R2, =LOAD //get the address for load register
+  48:	e59f20c0 	ldr	r2, [pc, #192]	; 110 <BIT_CODES+0x14>
+	STR R0, [R2] //load the start value
+  4c:	e5820000 	str	r0, [r2]
+	MOV R0, #1 
+  50:	e3a00001 	mov	r0, #1
+	LDR R2, =F //get the address for interrupt status F bit
+  54:	e59f20b8 	ldr	r2, [pc, #184]	; 114 <BIT_CODES+0x18>
+	STR R0, [R2] //reset the F bit
+  58:	e5820000 	str	r0, [r2]
+	LDR R2, =CONTROL //get the address for control register
+  5c:	e59f20b4 	ldr	r2, [pc, #180]	; 118 <BIT_CODES+0x1c>
+	STR R0, [R2] //enable the counter
+  60:	e5820000 	str	r0, [r2]
+	LDR R2, =F //get the address for interrupt status F bit
+  64:	e59f20a8 	ldr	r2, [pc, #168]	; 114 <BIT_CODES+0x18>
+
+00000068 <SUB_LOOP>:
+SUB_LOOP: 
+	LDR R1, [R2] //load the F bit
+  68:	e5921000 	ldr	r1, [r2]
+	CMP R1, #0 //if F bit is not set
+  6c:	e3510000 	cmp	r1, #0
+	BEQ SUB_LOOP //then repeat delay loop
+  70:	0afffffc 	beq	68 <SUB_LOOP>
+	BX LR //else return
+  74:	e12fff1e 	bx	lr
+
+00000078 <waitForPress>:
+
+waitForPress:
+	LDR R3, [R2] //load edge capture
+  78:	e5923000 	ldr	r3, [r2]
+	ANDS R3, #0xF //if edge capture is equal to 0
+  7c:	e213300f 	ands	r3, r3, #15
+	BEQ waitForPress //then keep waiting
+  80:	0afffffc 	beq	78 <waitForPress>
+	MOV R3, #0xF //else get value to reset all four edge bits
+  84:	e3a0300f 	mov	r3, #15
+	STR R3, [R2] //reset edge bits
+  88:	e5823000 	str	r3, [r2]
+	BX LR //return
+  8c:	e12fff1e 	bx	lr
+
+00000090 <DISPLAY>:
+	
+
+DISPLAY:    PUSH    {LR}            // save return address to main loop
+  90:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+            MOV     R0, R4          // pass the counter value to DIVIDE
+  94:	e1a00004 	mov	r0, r4
+            BL      DIVIDE          // ones digit will be in R0, tens digit in R1
+  98:	eb00000b 	bl	cc <DIVIDE>
+            PUSH    {R1}            // save the tens digit
+  9c:	e52d1004 	push	{r1}		; (str r1, [sp, #-4]!)
+            BL      SEG7_CODE       // get bit code for ones digit
+  a0:	eb000011 	bl	ec <SEG7_CODE>
+            MOV     R3, R0          // save bit code into HEX0
+  a4:	e1a03000 	mov	r3, r0
+			POP     {R1}            // retrieve the tens digit
+  a8:	e49d1004 	pop	{r1}		; (ldr r1, [sp], #4)
+            MOV     R0, R1          // pass the tens digit as an argument
+  ac:	e1a00001 	mov	r0, r1
+            BL      SEG7_CODE       // get bit code for tens digit
+  b0:	eb00000d 	bl	ec <SEG7_CODE>
+            LSL     R0, #8          // move into HEX1 position
+  b4:	e1a00400 	lsl	r0, r0, #8
+            ORR     R3, R0          // save bit code into HEX1
+  b8:	e1833000 	orr	r3, r3, r0
+			LDR     R2, =HEX        // get the address for HEX
+  bc:	e59f2058 	ldr	r2, [pc, #88]	; 11c <BIT_CODES+0x20>
+			STR     R3, [R2]        // light up the HEX
+  c0:	e5823000 	str	r3, [r2]
+			POP     {LR}            // restore return address to main loop
+  c4:	e49de004 	pop	{lr}		; (ldr lr, [sp], #4)
+			BX      LR              // return to main loop
+  c8:	e12fff1e 	bx	lr
+
+000000cc <DIVIDE>:
+			
+DIVIDE:     MOV    R2, #0           // initialize tens counter to 0
+  cc:	e3a02000 	mov	r2, #0
+
+000000d0 <CONT>:
+CONT:       CMP    R0, #10          // if the remainder is less than 10
+  d0:	e350000a 	cmp	r0, #10
+            BLT    DIV_END          // then it is time to return
+  d4:	ba000002 	blt	e4 <DIV_END>
+            SUB    R0, #10          // subtract 10 from argument
+  d8:	e240000a 	sub	r0, r0, #10
+            ADD    R2, #1           // increment tens counter
+  dc:	e2822001 	add	r2, r2, #1
+            B      CONT             // repeat
+  e0:	eafffffa 	b	d0 <CONT>
+
+000000e4 <DIV_END>:
+DIV_END:    MOV    R1, R2           // quotient in R1 (remainder in R0)
+  e4:	e1a01002 	mov	r1, r2
+            MOV    PC, LR           // return
+  e8:	e1a0f00e 	mov	pc, lr
+
+000000ec <SEG7_CODE>:
+
+SEG7_CODE:  MOV     R1, #BIT_CODES  // get pointer to first bit code "0"
+  ec:	e3a010fc 	mov	r1, #252	; 0xfc
+            ADD     R1, R0          // index into the BIT_CODES "array"
+  f0:	e0811000 	add	r1, r1, r0
+            LDRB    R0, [R1]        // load the bit pattern (to be returned)
+  f4:	e5d10000 	ldrb	r0, [r1]
+            MOV     PC, LR          // return
+  f8:	e1a0f00e 	mov	pc, lr
+
+000000fc <BIT_CODES>:
+  fc:	4f5b063f 	.word	0x4f5b063f
+ 100:	077d6d66 	.word	0x077d6d66
+ 104:	0000677f 	.word	0x0000677f
+ 108:	ff20005c 	.word	0xff20005c
+ 10c:	02faf080 	.word	0x02faf080
+ 110:	fffec600 	.word	0xfffec600
+ 114:	fffec60c 	.word	0xfffec60c
+ 118:	fffec608 	.word	0xfffec608
+ 11c:	ff200020 	.word	0xff200020

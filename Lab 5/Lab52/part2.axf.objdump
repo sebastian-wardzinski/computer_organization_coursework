@@ -1,0 +1,142 @@
+
+D:/ece243/Lab 5/Lab52/part2.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.global _start
+
+HEX_ADDRESS:	.word 0xFF200020
+EDGECAPTURE:  	.word 0xFF20005C
+
+_start:		LDR R9, HEX_ADDRESS
+   0:	ff200020 	.word	0xff200020
+
+00000004 <EDGECAPTURE>:
+   4:	ff20005c 	.word	0xff20005c
+
+00000008 <_start>:
+   8:	e51f9010 	ldr	r9, [pc, #-16]	; 0 <__cs3_interrupt_vector>
+			LDR R10, EDGECAPTURE
+   c:	e51fa010 	ldr	r10, [pc, #-16]	; 4 <EDGECAPTURE>
+            MOV R5, #0xf
+  10:	e3a0500f 	mov	r5, #15
+            STR R5, [R10]
+  14:	e58a5000 	str	r5, [r10]
+            MOV R5, #0
+  18:	e3a05000 	mov	r5, #0
+
+0000001c <HEX>:
+            
+HEX:		BL 	DO_DELAY
+  1c:	eb000015 	bl	78 <DO_DELAY>
+			ADD R5, #1
+  20:	e2855001 	add	r5, r5, #1
+            CMP R5, #0x64
+  24:	e3550064 	cmp	r5, #100	; 0x64
+            MOVEQ R5, #0
+  28:	03a05000 	moveq	r5, #0
+            MOV R0, R5
+  2c:	e1a00005 	mov	r0, r5
+            
+            BL DIVIDE		//r0 ones digit, r1 tens digit
+  30:	eb00001a 	bl	a0 <DIVIDE>
+            MOV R6, R0
+  34:	e1a06000 	mov	r6, r0
+            MOV R7, R1
+  38:	e1a07001 	mov	r7, r1
+            
+            MOV R0, R6
+  3c:	e1a00006 	mov	r0, r6
+            BL SEG7_CODE	//r0 input/ouput, r1 changed
+  40:	eb00001c 	bl	b8 <SEG7_CODE>
+            MOV R6, R0  
+  44:	e1a06000 	mov	r6, r0
+            MOV R0, R7
+  48:	e1a00007 	mov	r0, r7
+            BL SEG7_CODE
+  4c:	eb000019 	bl	b8 <SEG7_CODE>
+            LSL R0, #8
+  50:	e1a00400 	lsl	r0, r0, #8
+            ORR R6, R0
+  54:	e1866000 	orr	r6, r6, r0
+            STR R6, [R9]
+  58:	e5896000 	str	r6, [r9]
+            
+            MOV R8, #0
+  5c:	e3a08000 	mov	r8, #0
+            LDRB R8, [R10]
+  60:	e5da8000 	ldrb	r8, [r10]
+            CMP R8, #0x0
+  64:	e3580000 	cmp	r8, #0
+            MOVNE R8, #0xf
+  68:	13a0800f 	movne	r8, #15
+            STRNE R8, [R10]
+  6c:	158a8000 	strne	r8, [r10]
+            BNE COUNT_OFF
+  70:	1a000004 	bne	88 <COUNT_OFF>
+            B 	HEX
+  74:	eaffffe8 	b	1c <HEX>
+
+00000078 <DO_DELAY>:
+
+DO_DELAY:	LDR R0, =80000000
+  78:	e59f0054 	ldr	r0, [pc, #84]	; d4 <BIT_CODES+0xc>
+
+0000007c <SUB_LOOP>:
+SUB_LOOP:	SUBS R0, R0, #1
+  7c:	e2500001 	subs	r0, r0, #1
+			BNE SUB_LOOP
+  80:	1afffffd 	bne	7c <SUB_LOOP>
+            MOV PC, LR
+  84:	e1a0f00e 	mov	pc, lr
+
+00000088 <COUNT_OFF>:
+            
+COUNT_OFF:	LDRB R8, [R10]
+  88:	e5da8000 	ldrb	r8, [r10]
+			CMP R8, #0x0
+  8c:	e3580000 	cmp	r8, #0
+            MOVNE R8, #0xf
+  90:	13a0800f 	movne	r8, #15
+            STRNE R8, [R10]
+  94:	158a8000 	strne	r8, [r10]
+            BNE HEX
+  98:	1affffdf 	bne	1c <HEX>
+            B	COUNT_OFF
+  9c:	eafffff9 	b	88 <COUNT_OFF>
+
+000000a0 <DIVIDE>:
+            
+DIVIDE: 	MOV R1, #0		
+  a0:	e3a01000 	mov	r1, #0
+
+000000a4 <CONT>:
+CONT: 		CMP R0, #10			
+  a4:	e350000a 	cmp	r0, #10
+            MOVLT PC, LR 
+  a8:	b1a0f00e 	movlt	pc, lr
+            SUB R0, #10
+  ac:	e240000a 	sub	r0, r0, #10
+            ADD R1, #1
+  b0:	e2811001 	add	r1, r1, #1
+			B CONT	
+  b4:	eafffffa 	b	a4 <CONT>
+
+000000b8 <SEG7_CODE>:
+            
+SEG7_CODE:  MOV     R1, #BIT_CODES  
+  b8:	e3a010c8 	mov	r1, #200	; 0xc8
+            ADD     R1, R0         // index into the BIT_CODES "array"
+  bc:	e0811000 	add	r1, r1, r0
+            LDRB    R0, [R1]       // load the bit pattern (to be returned)
+  c0:	e5d10000 	ldrb	r0, [r1]
+            MOV     PC, LR     
+  c4:	e1a0f00e 	mov	pc, lr
+
+000000c8 <BIT_CODES>:
+  c8:	4f5b063f 	.word	0x4f5b063f
+  cc:	077d6d66 	.word	0x077d6d66
+  d0:	0000677f 	.word	0x0000677f
+  d4:	04c4b400 	.word	0x04c4b400

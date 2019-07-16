@@ -1,0 +1,168 @@
+
+D:/ece243/Lab 5/Lab51/part1.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.text
+.global _start
+
+_start:	  	MOV 	R9, #HEX_ADDRESS
+   0:	e3a090e4 	mov	r9, #228	; 0xe4
+			LDR		R9, [R9]
+   4:	e5999000 	ldr	r9, [r9]
+            MOV		R10, #KEY_ADDRESS
+   8:	e3a0a0e8 	mov	r10, #232	; 0xe8
+            LDR		R10, [R10]
+   c:	e59aa000 	ldr	r10, [r10]
+
+00000010 <WAITLOOP>:
+            
+WAITLOOP:	LDR     R3, [R10]
+  10:	e59a3000 	ldr	r3, [r10]
+			CMP 	R3, #0x1
+  14:	e3530001 	cmp	r3, #1
+ 			BEQ     KEY0
+  18:	0a00000a 	beq	48 <KEY0>
+            CMP 	R3, #0x2
+  1c:	e3530002 	cmp	r3, #2
+            BEQ    	KEY1
+  20:	0a000010 	beq	68 <KEY1>
+            CMP 	R3, #0x4
+  24:	e3530004 	cmp	r3, #4
+            BEQ 	KEY2
+  28:	0a000018 	beq	90 <KEY2>
+            CMP 	R3, #0x8
+  2c:	e3530008 	cmp	r3, #8
+            BEQ 	KEY3
+  30:	0a000020 	beq	b8 <KEY3>
+            B 		WAITLOOP
+  34:	eafffff5 	b	10 <WAITLOOP>
+
+00000038 <WAIT3>:
+            
+WAIT3: 		LDR 	R3, [R10] 
+  38:	e59a3000 	ldr	r3, [r10]
+			CMP 	R3, #0
+  3c:	e3530000 	cmp	r3, #0
+            BNE		KEY0
+  40:	1a000000 	bne	48 <KEY0>
+            B 		WAIT3
+  44:	eafffffb 	b	38 <WAIT3>
+
+00000048 <KEY0>:
+        	
+KEY0:		LDR     R3, [R10]
+  48:	e59a3000 	ldr	r3, [r10]
+			CMP 	R3, #0
+  4c:	e3530000 	cmp	r3, #0
+			BNE 	KEY0
+  50:	1afffffc 	bne	48 <KEY0>
+            B		KEY0rel
+  54:	eaffffff 	b	58 <KEY0rel>
+
+00000058 <KEY0rel>:
+
+KEY0rel:	MOV 	R0, #0
+  58:	e3a00000 	mov	r0, #0
+			BL 		SEG7_CODE
+  5c:	eb00001c 	bl	d4 <SEG7_CODE>
+            STR 	R2, [R9]
+  60:	e5892000 	str	r2, [r9]
+            MOV		PC, #WAITLOOP
+  64:	e3a0f010 	mov	pc, #16
+
+00000068 <KEY1>:
+            
+KEY1:		LDR     R3, [R10]
+  68:	e59a3000 	ldr	r3, [r10]
+			CMP 	R3, #0
+  6c:	e3530000 	cmp	r3, #0
+			BNE 	KEY1
+  70:	1afffffc 	bne	68 <KEY1>
+            B		KEY1rel
+  74:	eaffffff 	b	78 <KEY1rel>
+
+00000078 <KEY1rel>:
+
+KEY1rel:	CMP 	R0, #9
+  78:	e3500009 	cmp	r0, #9
+			ADDNE 	R0, #1
+  7c:	12800001 	addne	r0, r0, #1
+            MOVEQ	R0, #0
+  80:	03a00000 	moveq	r0, #0
+			BL      SEG7_CODE
+  84:	eb000012 	bl	d4 <SEG7_CODE>
+            STR 	R2, [R9]
+  88:	e5892000 	str	r2, [r9]
+            MOV		PC, #WAITLOOP
+  8c:	e3a0f010 	mov	pc, #16
+
+00000090 <KEY2>:
+
+KEY2:		LDR     R3, [R10]
+  90:	e59a3000 	ldr	r3, [r10]
+			CMP 	R3, #0
+  94:	e3530000 	cmp	r3, #0
+			BNE 	KEY2
+  98:	1afffffc 	bne	90 <KEY2>
+            B		KEY2rel
+  9c:	eaffffff 	b	a0 <KEY2rel>
+
+000000a0 <KEY2rel>:
+
+KEY2rel:	CMP 	R0, #0
+  a0:	e3500000 	cmp	r0, #0
+			SUBNE 	R0, #1
+  a4:	12400001 	subne	r0, r0, #1
+            MOVEQ	R0, #9
+  a8:	03a00009 	moveq	r0, #9
+			BL      SEG7_CODE
+  ac:	eb000008 	bl	d4 <SEG7_CODE>
+            STR 	R2, [R9]
+  b0:	e5892000 	str	r2, [r9]
+            MOV		PC, #WAITLOOP
+  b4:	e3a0f010 	mov	pc, #16
+
+000000b8 <KEY3>:
+
+KEY3:		LDR     R3, [R10]
+  b8:	e59a3000 	ldr	r3, [r10]
+			CMP 	R3, #0
+  bc:	e3530000 	cmp	r3, #0
+			BNE 	KEY3
+  c0:	1afffffc 	bne	b8 <KEY3>
+            B		KEY3rel
+  c4:	eaffffff 	b	c8 <KEY3rel>
+
+000000c8 <KEY3rel>:
+
+KEY3rel:	MOV 	R0, #0
+  c8:	e3a00000 	mov	r0, #0
+            STR 	R0, [R9]
+  cc:	e5890000 	str	r0, [r9]
+            MOV		PC, #WAIT3
+  d0:	e3a0f038 	mov	pc, #56	; 0x38
+
+000000d4 <SEG7_CODE>:
+
+SEG7_CODE:  MOV     R1, #BIT_CODES  
+  d4:	e3a010ec 	mov	r1, #236	; 0xec
+            ADD     R1, R0         // index into the BIT_CODES "array"
+  d8:	e0811000 	add	r1, r1, r0
+            LDRB    R2, [R1]       // load the bit pattern (to be returned)
+  dc:	e5d12000 	ldrb	r2, [r1]
+            MOV     PC, LR     
+  e0:	e1a0f00e 	mov	pc, lr
+
+000000e4 <HEX_ADDRESS>:
+  e4:	ff200020 	.word	0xff200020
+
+000000e8 <KEY_ADDRESS>:
+  e8:	ff200050 	.word	0xff200050
+
+000000ec <BIT_CODES>:
+  ec:	4f5b063f 	.word	0x4f5b063f
+  f0:	077d6d66 	.word	0x077d6d66
+  f4:	0000677f 	.word	0x0000677f

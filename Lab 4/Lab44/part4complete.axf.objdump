@@ -1,0 +1,274 @@
+
+D:/ece243/part4complete.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+
+/* Subroutine to convert the digits from 0 to 9 to be shown on a HEX display.
+ *    Parameters: R0 = the decimal value of the digit to be displayed
+ *    Returns: R0 = bit patterm to be written to the HEX display */
+
+SEG7_CODE:  MOV     R1, #BIT_CODES  
+   0:	e3a01010 	mov	r1, #16
+            ADD     R1, R0         // index into the BIT_CODES "array"
+   4:	e0811000 	add	r1, r1, r0
+            LDRB    R0, [R1]       // load the bit pattern (to be returned)
+   8:	e5d10000 	ldrb	r0, [r1]
+            MOV     PC, LR              
+   c:	e1a0f00e 	mov	pc, lr
+
+00000010 <BIT_CODES>:
+  10:	4f5b063f 	.word	0x4f5b063f
+  14:	077d6d66 	.word	0x077d6d66
+  18:	0000677f 	.word	0x0000677f
+
+0000001c <_start>:
+
+BIT_CODES:  .byte   0b00111111, 0b00000110, 0b01011011, 0b01001111, 0b01100110
+            .byte   0b01101101, 0b01111101, 0b00000111, 0b01111111, 0b01100111
+            .skip   2      // pad with 2 bytes to maintain word alignment
+
+_start:   MOV     R3, #TEST_NUM   // load the data word ...
+  1c:	e3a03f66 	mov	r3, #408	; 0x198
+          MOV     R0, #0
+  20:	e3a00000 	mov	r0, #0
+          MOV 	  R5, #0
+  24:	e3a05000 	mov	r5, #0
+          MOV 	  R6, #0
+  28:	e3a06000 	mov	r6, #0
+          MOV 	  R7, #0
+  2c:	e3a07000 	mov	r7, #0
+          BL      SUB0
+  30:	eb000021 	bl	bc <SUB0>
+
+00000034 <DISPLAY>:
+          
+/* Display R5 on HEX1-0, R6 on HEX3-2 and R7 on HEX5-4 */
+DISPLAY:  LDR     R8, =0xFF200020 // base address of HEX3-HEX0
+  34:	e59f8174 	ldr	r8, [pc, #372]	; 1b0 <TEST_NUM+0x18>
+          MOV     R0, R5          // display R5 on HEX1-0
+  38:	e1a00005 	mov	r0, r5
+          BL      DIVIDE          // ones digit will be in R0; tens digit in R1
+  3c:	eb00004e 	bl	17c <DIVIDE>
+          MOV     R9, R1          // save the tens digit
+  40:	e1a09001 	mov	r9, r1
+          BL      SEG7_CODE       
+  44:	ebffffed 	bl	0 <__cs3_interrupt_vector>
+          MOV     R4, R0          // save bit code
+  48:	e1a04000 	mov	r4, r0
+          MOV     R0, R9          // retrieve the tens digit, get bit code
+  4c:	e1a00009 	mov	r0, r9
+          BL      SEG7_CODE       
+  50:	ebffffea 	bl	0 <__cs3_interrupt_vector>
+          LSL     R0, #8		  //shift by 8 so because the tens value needs to access HEX1
+  54:	e1a00400 	lsl	r0, r0, #8
+          ORR     R4, R0		  //ORR the bit codes for the ones and the tens digit, to create a code for a 2-digit decimal number
+  58:	e1844000 	orr	r4, r4, r0
+          
+          /*code for R6*/
+          LDR     R8, =0xFF200020 // base address of HEX5-HEX4
+  5c:	e59f814c 	ldr	r8, [pc, #332]	; 1b0 <TEST_NUM+0x18>
+          MOV 	  R0, R6
+  60:	e1a00006 	mov	r0, r6
+          BL 	  DIVIDE
+  64:	eb000044 	bl	17c <DIVIDE>
+          MOV 	  R9, R1
+  68:	e1a09001 	mov	r9, r1
+          BL      SEG7_CODE
+  6c:	ebffffe3 	bl	0 <__cs3_interrupt_vector>
+          LSL 	  R0, #16			//shift by 16 to access HEX2
+  70:	e1a00800 	lsl	r0, r0, #16
+          ORR     R4, R0
+  74:	e1844000 	orr	r4, r4, r0
+          MOV     R0, R9
+  78:	e1a00009 	mov	r0, r9
+          BL      SEG7_CODE
+  7c:	ebffffdf 	bl	0 <__cs3_interrupt_vector>
+          LSL     R0, #24			//shift by 24 to access HEX3
+  80:	e1a00c00 	lsl	r0, r0, #24
+          ORR     R4, R0
+  84:	e1844000 	orr	r4, r4, r0
+          
+          STR     R4, [R8]        // display the numbers from R6 and R5
+  88:	e5884000 	str	r4, [r8]
+          
+          /*code for R7*/
+          LDR     R8, =0xFF200030 // base address of HEX4-HEX5
+  8c:	e59f8120 	ldr	r8, [pc, #288]	; 1b4 <TEST_NUM+0x1c>
+          MOV 	  R0, R7
+  90:	e1a00007 	mov	r0, r7
+          BL 	  DIVIDE
+  94:	eb000038 	bl	17c <DIVIDE>
+          MOV 	  R9, R1
+  98:	e1a09001 	mov	r9, r1
+          BL 	  SEG7_CODE
+  9c:	ebffffd7 	bl	0 <__cs3_interrupt_vector>
+          MOV     R4, R0
+  a0:	e1a04000 	mov	r4, r0
+          MOV     R0, R9
+  a4:	e1a00009 	mov	r0, r9
+          BL      SEG7_CODE
+  a8:	ebffffd4 	bl	0 <__cs3_interrupt_vector>
+          LSL     R0, #8		 //shift by 8 to acces HEX5
+  ac:	e1a00400 	lsl	r0, r0, #8
+          ORR     R4, R0
+  b0:	e1844000 	orr	r4, r4, r0
+          
+          STR     R4, [R8]        // display the number from r7
+  b4:	e5884000 	str	r4, [r8]
+
+000000b8 <END>:
+          
+END:      B       END			//END OF CODE, R5, R6, R7 should be displayed on the HEXs
+  b8:	eafffffe 	b	b8 <END>
+
+000000bc <SUB0>:
+
+
+SUB0:     PUSH    {LR}      	//Store link since nested subroutines will be called
+  bc:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+
+000000c0 <SUB1>:
+
+SUB1:     LDR     R4, [R3], #4    //load into R4, this register will always contain the orignal work
+  c0:	e4934004 	ldr	r4, [r3], #4
+
+		  CMP 	  R4, #0		//If end of word sequence reached, pop the link and return to 'main'
+  c4:	e3540000 	cmp	r4, #0
+          POPEQ   {LR}
+  c8:	049de004 	popeq	{lr}		; (ldreq lr, [sp], #4)
+          MOVEQ   PC, LR
+  cc:	01a0f00e 	moveq	pc, lr
+          
+          MOV 	  R1, R4		//R1 will go into the function, and R4 will keep the original word
+  d0:	e1a01004 	mov	r1, r4
+          BL	  ONES				//since we need it for the next function as well
+  d4:	eb00000d 	bl	110 <ONES>
+          CMP     R5, R0		//If the ouput is greater than the previous larger, replace the largest
+  d8:	e1550000 	cmp	r5, r0
+          MOVLE   R5, R0
+  dc:	d1a05000 	movle	r5, r0
+          MOV     R0, #0		//Reset the output register
+  e0:	e3a00000 	mov	r0, #0
+          
+          MOV 	  R1, R4		//Put the word into R1 again, rinse and repeat
+  e4:	e1a01004 	mov	r1, r4
+          BL      ZEROS
+  e8:	eb00000e 	bl	128 <ZEROS>
+          CMP     R6, R0
+  ec:	e1560000 	cmp	r6, r0
+          MOVLE   R6, R0
+  f0:	d1a06000 	movle	r6, r0
+          MOV     R0, #0
+  f4:	e3a00000 	mov	r0, #0
+          
+          MOV 	  R1, R4
+  f8:	e1a01004 	mov	r1, r4
+          BL      ALTERNATE
+  fc:	eb000010 	bl	144 <ALTERNATE>
+          CMP     R7, R0
+ 100:	e1570000 	cmp	r7, r0
+          MOVLE   R7, R0
+ 104:	d1a07000 	movle	r7, r0
+          MOV     R0, #0
+ 108:	e3a00000 	mov	r0, #0
+          
+          B 	  SUB1			//Loop until no more words left
+ 10c:	eaffffeb 	b	c0 <SUB1>
+
+00000110 <ONES>:
+          
+          
+ONES:     CMP     R1, #0          // loop until the data contains no more 1's
+ 110:	e3510000 	cmp	r1, #0
+          MOVEQ	  PC, LR
+ 114:	01a0f00e 	moveq	pc, lr
+          LSR     R2, R1, #1      // perform SHIFT, followed by AND
+ 118:	e1a020a1 	lsr	r2, r1, #1
+          AND     R1, R1, R2      
+ 11c:	e0011002 	and	r1, r1, r2
+          ADD     R0, #1          // count the string length so far
+ 120:	e2800001 	add	r0, r0, #1
+          B       ONES 
+ 124:	eafffff9 	b	110 <ONES>
+
+00000128 <ZEROS>:
+          
+ZEROS:    CMP     R1, #4294967295        // loop until the data contains no more 0
+ 128:	e3710001 	cmn	r1, #1
+          MOVEQ	  PC, LR
+ 12c:	01a0f00e 	moveq	pc, lr
+          LSR     R2, R1, #1      // perform SHIFT, followed by OR
+ 130:	e1a020a1 	lsr	r2, r1, #1
+          ADD     R2, #2147483648
+ 134:	e2822102 	add	r2, r2, #-2147483648	; 0x80000000
+          ORR     R1, R1, R2      
+ 138:	e1811002 	orr	r1, r1, r2
+          ADD     R0, #1          // count the string length so far
+ 13c:	e2800001 	add	r0, r0, #1
+          B       ZEROS 
+ 140:	eafffff8 	b	128 <ZEROS>
+
+00000144 <ALTERNATE>:
+
+ALTERNATE:PUSH    {LR}
+ 144:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+          MOV 	  R9, #ALTERNATING
+ 148:	e3a09f65 	mov	r9, #404	; 0x194
+          LDR     R9, [R9]
+ 14c:	e5999000 	ldr	r9, [r9]
+	      EOR     R1, R1, R9
+ 150:	e0211009 	eor	r1, r1, r9
+          MOV 	  R2, R1
+ 154:	e1a02001 	mov	r2, r1
+          BL      ONES
+ 158:	ebffffec 	bl	110 <ONES>
+          MOV 	  R9, R0		//store the output for later comparison
+ 15c:	e1a09000 	mov	r9, r0
+          MOV 	  R0, #0
+ 160:	e3a00000 	mov	r0, #0
+          MOV     R1, R2		//get the original bitstream value back for the next function cal
+ 164:	e1a01002 	mov	r1, r2
+          BL      ZEROS
+ 168:	ebffffee 	bl	128 <ZEROS>
+          CMP     R0, R9
+ 16c:	e1500009 	cmp	r0, r9
+          MOVLE   R0, R9 		//if ONES output was bigger, replace R0 with it
+ 170:	d1a00009 	movle	r0, r9
+          POP     {LR}			//Retreive the link and return to 'SUB1'
+ 174:	e49de004 	pop	{lr}		; (ldr lr, [sp], #4)
+          MOV 	  PC, LR
+ 178:	e1a0f00e 	mov	pc, lr
+
+0000017c <DIVIDE>:
+
+
+DIVIDE: 	MOV R1, #0			//Code from lab 3 to convert a 2 decimal number, from hex to decimal
+ 17c:	e3a01000 	mov	r1, #0
+
+00000180 <CONT>:
+CONT: 		CMP R0, #10			//R0 contains remainder, R1 contains tens digit
+ 180:	e350000a 	cmp	r0, #10
+            MOVLT PC, LR 
+ 184:	b1a0f00e 	movlt	pc, lr
+            SUB R0, #10
+ 188:	e240000a 	sub	r0, r0, #10
+            ADD R1, #1
+ 18c:	e2811001 	add	r1, r1, #1
+			B CONT				//loop until remainder is less than 10
+ 190:	eafffffa 	b	180 <CONT>
+
+00000194 <ALTERNATING>:
+ 194:	55555555 	.word	0x55555555
+
+00000198 <TEST_NUM>:
+ 198:	48472493 	.word	0x48472493
+ 19c:	53463634 	.word	0x53463634
+ 1a0:	00000001 	.word	0x00000001
+ 1a4:	ffffffff 	.word	0xffffffff
+ 1a8:	55555555 	.word	0x55555555
+ 1ac:	00000000 	.word	0x00000000
+ 1b0:	ff200020 	.word	0xff200020
+ 1b4:	ff200030 	.word	0xff200030

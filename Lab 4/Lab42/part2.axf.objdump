@@ -1,0 +1,77 @@
+
+D:/ece243/part2.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+         .text                   // executable code follows
+          .global _start                  
+
+_start:   MOV     R3, #TEST_NUM   // load the data word ...
+   0:	e3a03054 	mov	r3, #84	; 0x54
+          MOV     R0, #0
+   4:	e3a00000 	mov	r0, #0
+          MOV 	  R5, #0
+   8:	e3a05000 	mov	r5, #0
+          BL      SUB0
+   c:	eb000000 	bl	14 <SUB0>
+
+00000010 <END>:
+
+END:      B       END  
+  10:	eafffffe 	b	10 <END>
+
+00000014 <SUB0>:
+
+SUB0:     PUSH    {LR}      
+  14:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+
+00000018 <SUB1>:
+
+SUB1:     LDR     R1, [R3], #4    // into R1
+  18:	e4931004 	ldr	r1, [r3], #4
+		  CMP 	  R1, #0
+  1c:	e3510000 	cmp	r1, #0
+          POPEQ   {LR}
+  20:	049de004 	popeq	{lr}		; (ldreq lr, [sp], #4)
+          MOVEQ   PC, LR
+  24:	01a0f00e 	moveq	pc, lr
+          BL	  ONES
+  28:	eb000003 	bl	3c <ONES>
+
+          CMP     R5, R0
+  2c:	e1550000 	cmp	r5, r0
+          MOVLE   R5, R0
+  30:	d1a05000 	movle	r5, r0
+          MOV     R0, #0          // R0 will hold next result
+  34:	e3a00000 	mov	r0, #0
+          B 	  SUB1
+  38:	eafffff6 	b	18 <SUB1>
+
+0000003c <ONES>:
+          
+ONES:     CMP     R1, #0          // loop until the data contains no more 1's
+  3c:	e3510000 	cmp	r1, #0
+          MOVEQ	  PC, LR
+  40:	01a0f00e 	moveq	pc, lr
+          LSR     R2, R1, #1      // perform SHIFT, followed by AND
+  44:	e1a020a1 	lsr	r2, r1, #1
+          AND     R1, R1, R2      
+  48:	e0011002 	and	r1, r1, r2
+          ADD     R0, #1          // count the string length so far
+  4c:	e2800001 	add	r0, r0, #1
+          B       ONES 
+  50:	eafffff9 	b	3c <ONES>
+
+00000054 <TEST_NUM>:
+  54:	56786578 	.word	0x56786578
+  58:	34645634 	.word	0x34645634
+  5c:	00000000 	.word	0x00000000
+  60:	dddddddd 	.word	0xdddddddd
+  64:	aaaaaaaa 	.word	0xaaaaaaaa
+  68:	88888888 	.word	0x88888888
+  6c:	66666666 	.word	0x66666666
+  70:	33333333 	.word	0x33333333
+  74:	11111111 	.word	0x11111111
+  78:	00000000 	.word	0x00000000

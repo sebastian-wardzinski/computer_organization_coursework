@@ -1,0 +1,213 @@
+
+D:/ece243/Lab 5/Parts3&4/Lab5/Lab5/part4/part4.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+.equ EDGE, 0xFF20005C
+.equ LOAD, 0xFFFEC600
+.equ CONTROL, 0xFFFEC608
+.equ F, 0xFFFEC60C
+_start:
+	MOV R4, #0 //centisenconds
+   0:	e3a04000 	mov	r4, #0
+	MOV R5, #0 //seconds
+   4:	e3a05000 	mov	r5, #0
+	MOV R3, #0xF //value to reset all four edge bits
+   8:	e3a0300f 	mov	r3, #15
+	LDR R2, =EDGE //get the address for edge capture
+   c:	e59f2130 	ldr	r2, [pc, #304]	; 144 <BIT_CODES+0xc>
+	STR R3, [R2] //reset edge capture
+  10:	e5823000 	str	r3, [r2]
+	BL DISPLAY //display "0" on HEX
+  14:	eb000021 	bl	a0 <DISPLAY>
+
+00000018 <loop>:
+	
+loop:
+	BL DO_DELAY //wait 0.01 seconds
+  18:	eb00000d 	bl	54 <DO_DELAY>
+	ADD R4, #1 //increment centiseconds value
+  1c:	e2844001 	add	r4, r4, #1
+	BL DISPLAY //display centiseconds value on HEX
+  20:	eb00001e 	bl	a0 <DISPLAY>
+	CMP R4, #99 //if centiseconds has reached 99
+  24:	e3540063 	cmp	r4, #99	; 0x63
+	MOVEQ R4, #0 //then wrap around to 0
+  28:	03a04000 	moveq	r4, #0
+	ADDEQ R5, #1 //then increment seconds value
+  2c:	02855001 	addeq	r5, r5, #1
+	CMP R5, #60 //if seconds has reached 60
+  30:	e355003c 	cmp	r5, #60	; 0x3c
+	MOVEQ R5, #0 //then wrap around to 0
+  34:	03a05000 	moveq	r5, #0
+	
+	LDR R2, =EDGE //get the address for edge capture
+  38:	e59f2104 	ldr	r2, [pc, #260]	; 144 <BIT_CODES+0xc>
+	LDR R3, [R2] //load edge capture
+  3c:	e5923000 	ldr	r3, [r2]
+	ANDS R3, #0xF //if edge capture is not 0
+  40:	e213300f 	ands	r3, r3, #15
+	MOVNE R3, #0xF //then get value to reset all four edge bits
+  44:	13a0300f 	movne	r3, #15
+	STRNE R3, [R2] //then reset edge capture
+  48:	15823000 	strne	r3, [r2]
+	BLNE waitForPress //then wait for the next edge
+  4c:	1b00000d 	blne	88 <waitForPress>
+	
+	B loop //loop forever
+  50:	eafffff0 	b	18 <loop>
+
+00000054 <DO_DELAY>:
+	
+DO_DELAY: 
+	LDR R0, =2000000 // delay counter start value
+  54:	e59f00ec 	ldr	r0, [pc, #236]	; 148 <BIT_CODES+0x10>
+	LDR R2, =LOAD //get the address for load register
+  58:	e59f20ec 	ldr	r2, [pc, #236]	; 14c <BIT_CODES+0x14>
+	STR R0, [R2] //load the start value
+  5c:	e5820000 	str	r0, [r2]
+	MOV R0, #1 //1 for enabling counter and resetting F
+  60:	e3a00001 	mov	r0, #1
+	LDR R2, =F //get the address for interrupt status F bit
+  64:	e59f20e4 	ldr	r2, [pc, #228]	; 150 <BIT_CODES+0x18>
+	STR R0, [R2] //reset the F bit
+  68:	e5820000 	str	r0, [r2]
+	LDR R2, =CONTROL //get the address for control register
+  6c:	e59f20e0 	ldr	r2, [pc, #224]	; 154 <BIT_CODES+0x1c>
+	STR R0, [R2] //enable the counter
+  70:	e5820000 	str	r0, [r2]
+	LDR R2, =F //get the address for interrupt status F bit
+  74:	e59f20d4 	ldr	r2, [pc, #212]	; 150 <BIT_CODES+0x18>
+
+00000078 <SUB_LOOP>:
+SUB_LOOP: 
+	LDR R1, [R2] //load the F bit
+  78:	e5921000 	ldr	r1, [r2]
+	CMP R1, #0 //if F bit is not set
+  7c:	e3510000 	cmp	r1, #0
+	BEQ SUB_LOOP //then repeat delay loop
+  80:	0afffffc 	beq	78 <SUB_LOOP>
+	BX LR //else return
+  84:	e12fff1e 	bx	lr
+
+00000088 <waitForPress>:
+
+waitForPress:
+	LDR R3, [R2] //load edge capture
+  88:	e5923000 	ldr	r3, [r2]
+	ANDS R3, #0xF //if edge capture is equal to 0
+  8c:	e213300f 	ands	r3, r3, #15
+	BEQ waitForPress //then keep waiting
+  90:	0afffffc 	beq	88 <waitForPress>
+	MOV R3, #0xF //else get value to reset all four edge bits
+  94:	e3a0300f 	mov	r3, #15
+	STR R3, [R2] //reset edge bits
+  98:	e5823000 	str	r3, [r2]
+	BX LR //return
+  9c:	e12fff1e 	bx	lr
+
+000000a0 <DISPLAY>:
+	
+
+DISPLAY:    PUSH    {LR}            // save return address to main loop
+  a0:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+
+            MOV     R0, R4          // pass the centiseconds value to DIVIDE
+  a4:	e1a00004 	mov	r0, r4
+            BL      DIVIDE          // ones digit will be in R0, tens digit in R1
+  a8:	eb000016 	bl	108 <DIVIDE>
+            PUSH    {R1}            // save the tens digit
+  ac:	e52d1004 	push	{r1}		; (str r1, [sp, #-4]!)
+            BL      SEG7_CODE       // get bit code for ones digit
+  b0:	eb00001c 	bl	128 <SEG7_CODE>
+            MOV     R3, R0          // save bit code into HEX0
+  b4:	e1a03000 	mov	r3, r0
+			POP     {R1}            // retrieve the tens digit
+  b8:	e49d1004 	pop	{r1}		; (ldr r1, [sp], #4)
+            MOV     R0, R1          // pass the tens digit as an argument
+  bc:	e1a00001 	mov	r0, r1
+            BL      SEG7_CODE       // get bit code for tens digit
+  c0:	eb000018 	bl	128 <SEG7_CODE>
+            LSL     R0, #8          // move into HEX1 position
+  c4:	e1a00400 	lsl	r0, r0, #8
+            ORR     R3, R0          // save bit code into HEX1
+  c8:	e1833000 	orr	r3, r3, r0
+			
+			MOV     R0, R5          // pass the seconds value to DIVIDE
+  cc:	e1a00005 	mov	r0, r5
+            BL      DIVIDE          // ones digit will be in R0, tens digit in R1
+  d0:	eb00000c 	bl	108 <DIVIDE>
+            PUSH    {R1}            // save the tens digit
+  d4:	e52d1004 	push	{r1}		; (str r1, [sp, #-4]!)
+            BL      SEG7_CODE       // get bit code for ones digit
+  d8:	eb000012 	bl	128 <SEG7_CODE>
+			LSL     R0, #16         // move into HEX2 position
+  dc:	e1a00800 	lsl	r0, r0, #16
+            ORR     R3, R0          // save bit code into HEX2
+  e0:	e1833000 	orr	r3, r3, r0
+			POP     {R1}            // retrieve the tens digit
+  e4:	e49d1004 	pop	{r1}		; (ldr r1, [sp], #4)
+            MOV     R0, R1          // pass the tens digit as an argument
+  e8:	e1a00001 	mov	r0, r1
+            BL      SEG7_CODE       // get bit code for tens digit
+  ec:	eb00000d 	bl	128 <SEG7_CODE>
+            LSL     R0, #24         // move into HEX3 position
+  f0:	e1a00c00 	lsl	r0, r0, #24
+            ORR     R3, R0          // save bit code into HEX3
+  f4:	e1833000 	orr	r3, r3, r0
+			
+			LDR     R2, =HEX        // get the address for HEX
+  f8:	e59f2058 	ldr	r2, [pc, #88]	; 158 <BIT_CODES+0x20>
+			STR     R3, [R2]        // light up the HEX
+  fc:	e5823000 	str	r3, [r2]
+			POP     {LR}            // restore return address to main loop
+ 100:	e49de004 	pop	{lr}		; (ldr lr, [sp], #4)
+			BX      LR              // return to main loop
+ 104:	e12fff1e 	bx	lr
+
+00000108 <DIVIDE>:
+			
+DIVIDE:     MOV    R2, #0           // initialize tens counter to 0
+ 108:	e3a02000 	mov	r2, #0
+
+0000010c <CONT>:
+CONT:       CMP    R0, #10          // if the remainder is less than 10
+ 10c:	e350000a 	cmp	r0, #10
+            BLT    DIV_END          // then it is time to return
+ 110:	ba000002 	blt	120 <DIV_END>
+            SUB    R0, #10          // subtract 10 from argument
+ 114:	e240000a 	sub	r0, r0, #10
+            ADD    R2, #1           // increment tens counter
+ 118:	e2822001 	add	r2, r2, #1
+            B      CONT             // repeat
+ 11c:	eafffffa 	b	10c <CONT>
+
+00000120 <DIV_END>:
+DIV_END:    MOV    R1, R2           // quotient in R1 (remainder in R0)
+ 120:	e1a01002 	mov	r1, r2
+            MOV    PC, LR           // return
+ 124:	e1a0f00e 	mov	pc, lr
+
+00000128 <SEG7_CODE>:
+
+SEG7_CODE:  MOV     R1, #BIT_CODES  // get pointer to first bit code "0"
+ 128:	e3a01f4e 	mov	r1, #312	; 0x138
+            ADD     R1, R0          // index into the BIT_CODES "array"
+ 12c:	e0811000 	add	r1, r1, r0
+            LDRB    R0, [R1]        // load the bit pattern (to be returned)
+ 130:	e5d10000 	ldrb	r0, [r1]
+            MOV     PC, LR          // return
+ 134:	e1a0f00e 	mov	pc, lr
+
+00000138 <BIT_CODES>:
+ 138:	4f5b063f 	.word	0x4f5b063f
+ 13c:	077d6d66 	.word	0x077d6d66
+ 140:	0000677f 	.word	0x0000677f
+ 144:	ff20005c 	.word	0xff20005c
+ 148:	001e8480 	.word	0x001e8480
+ 14c:	fffec600 	.word	0xfffec600
+ 150:	fffec60c 	.word	0xfffec60c
+ 154:	fffec608 	.word	0xfffec608
+ 158:	ff200020 	.word	0xff200020

@@ -1,0 +1,203 @@
+
+D:/ece243/Lab 5/Lab53/part4.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+LOAD: 			.word 0xFFFEC600
+CONTROL:		.word 0xFFFEC608
+INTERUPT:		.word 0xFFFEC60C
+DELAY: 			.word 0x001E8480
+
+_start:		LDR R12, HEX_ADDRESS
+   0:	ff200020 	.word	0xff200020
+
+00000004 <EDGECAPTURE>:
+   4:	ff20005c 	.word	0xff20005c
+
+00000008 <LOAD>:
+   8:	fffec600 	.word	0xfffec600
+
+0000000c <CONTROL>:
+   c:	fffec608 	.word	0xfffec608
+
+00000010 <INTERUPT>:
+  10:	fffec60c 	.word	0xfffec60c
+
+00000014 <DELAY>:
+  14:	001e8480 	.word	0x001e8480
+
+00000018 <_start>:
+  18:	e51fc020 	ldr	r12, [pc, #-32]	; 0 <__cs3_interrupt_vector>
+			LDR R10, EDGECAPTURE
+  1c:	e51fa020 	ldr	r10, [pc, #-32]	; 4 <EDGECAPTURE>
+            LDR R11, LOAD
+  20:	e51fb020 	ldr	r11, [pc, #-32]	; 8 <LOAD>
+            LDR R5, DELAY
+  24:	e51f5018 	ldr	r5, [pc, #-24]	; 14 <DELAY>
+            STR R5, [R11]
+  28:	e58b5000 	str	r5, [r11]
+            LDR R11, CONTROL
+  2c:	e51fb028 	ldr	r11, [pc, #-40]	; c <CONTROL>
+            MOV R5, #3
+  30:	e3a05003 	mov	r5, #3
+            STRB R5, [R11]
+  34:	e5cb5000 	strb	r5, [r11]
+            LDR R11, INTERUPT
+  38:	e51fb030 	ldr	r11, [pc, #-48]	; 10 <INTERUPT>
+            MOV R5, #0x0f
+  3c:	e3a0500f 	mov	r5, #15
+            STR R5, [R10]
+  40:	e58a5000 	str	r5, [r10]
+            MOV R5, #0
+  44:	e3a05000 	mov	r5, #0
+            MOV R6, #0
+  48:	e3a06000 	mov	r6, #0
+
+0000004c <HEX>:
+            
+HEX:		BL 	COUNTER
+  4c:	eb000024 	bl	e4 <COUNTER>
+			ADD R5, #1
+  50:	e2855001 	add	r5, r5, #1
+            CMP R5, #100
+  54:	e3550064 	cmp	r5, #100	; 0x64
+            MOVEQ R5, #0
+  58:	03a05000 	moveq	r5, #0
+            ADDEQ R6, #1
+  5c:	02866001 	addeq	r6, r6, #1
+            CMP R6, #60
+  60:	e356003c 	cmp	r6, #60	; 0x3c
+            MOVEQ R6, #0
+  64:	03a06000 	moveq	r6, #0
+            
+            MOV R0, R5
+  68:	e1a00005 	mov	r0, r5
+            BL DIVIDE		//r0 ones digit, r1 tens digit
+  6c:	eb000027 	bl	110 <DIVIDE>
+            MOV R8, R0
+  70:	e1a08000 	mov	r8, r0
+            MOV R7, R1
+  74:	e1a07001 	mov	r7, r1
+            
+            MOV R0, R8
+  78:	e1a00008 	mov	r0, r8
+            BL SEG7_CODE	//r0 input/ouput, r1 changed
+  7c:	eb000029 	bl	128 <SEG7_CODE>
+            MOV R9, R0  
+  80:	e1a09000 	mov	r9, r0
+            MOV R0, R7
+  84:	e1a00007 	mov	r0, r7
+            BL SEG7_CODE
+  88:	eb000026 	bl	128 <SEG7_CODE>
+            LSL R0, #8
+  8c:	e1a00400 	lsl	r0, r0, #8
+            ORR R9, R0
+  90:	e1899000 	orr	r9, r9, r0
+            
+            MOV R0, R6
+  94:	e1a00006 	mov	r0, r6
+            BL DIVIDE
+  98:	eb00001c 	bl	110 <DIVIDE>
+            MOV R8, R0  
+  9c:	e1a08000 	mov	r8, r0
+            MOV R7, R1
+  a0:	e1a07001 	mov	r7, r1
+            
+            MOV R0, R8
+  a4:	e1a00008 	mov	r0, r8
+            BL SEG7_CODE
+  a8:	eb00001e 	bl	128 <SEG7_CODE>
+            LSL R0, #16
+  ac:	e1a00800 	lsl	r0, r0, #16
+            ORR R9, R0  
+  b0:	e1899000 	orr	r9, r9, r0
+            MOV R0, R7
+  b4:	e1a00007 	mov	r0, r7
+            BL SEG7_CODE
+  b8:	eb00001a 	bl	128 <SEG7_CODE>
+            LSL R0, #24
+  bc:	e1a00c00 	lsl	r0, r0, #24
+            ORR R9, R0
+  c0:	e1899000 	orr	r9, r9, r0
+            
+            STR R9, [R12]
+  c4:	e58c9000 	str	r9, [r12]
+            
+            MOV R8, #0
+  c8:	e3a08000 	mov	r8, #0
+            LDRB R8, [R10]	//R10 points to Edgecapture bits, just load 1 byte
+  cc:	e5da8000 	ldrb	r8, [r10]
+            CMP R8, #0xf0  //the first f doesn't mean anything (those are unused bits set to 1), you care about the last hex digit	
+  d0:	e35800f0 	cmp	r8, #240	; 0xf0
+            MOVNE R8, #0xf	//if a button was pressed, reset the edgecapture bits by storing 1s in them
+  d4:	13a0800f 	movne	r8, #15
+            STRNE R8, [R10] 
+  d8:	158a8000 	strne	r8, [r10]
+            BNE COUNT_OFF //then go to a subroutine that waits for you to press a button again to re-enable the counter
+  dc:	1a000005 	bne	f8 <COUNT_OFF>
+            				//in that subroutine you do something very similar to this
+            B 	HEX		//if no buttons were pressed start the whole process again
+  e0:	eaffffd9 	b	4c <HEX>
+
+000000e4 <COUNTER>:
+
+COUNTER:	LDR R0, [R11]
+  e4:	e59b0000 	ldr	r0, [r11]
+			CMP R0, #0
+  e8:	e3500000 	cmp	r0, #0
+            BEQ COUNTER
+  ec:	0afffffc 	beq	e4 <COUNTER>
+            STR R0, [R11]
+  f0:	e58b0000 	str	r0, [r11]
+            MOV	PC, LR
+  f4:	e1a0f00e 	mov	pc, lr
+
+000000f8 <COUNT_OFF>:
+            
+COUNT_OFF:	LDRB R8, [R10]
+  f8:	e5da8000 	ldrb	r8, [r10]
+			CMP R8, #240
+  fc:	e35800f0 	cmp	r8, #240	; 0xf0
+            MOVNE R8, #0xf
+ 100:	13a0800f 	movne	r8, #15
+            STRNE R8, [R10]
+ 104:	158a8000 	strne	r8, [r10]
+            BNE HEX
+ 108:	1affffcf 	bne	4c <HEX>
+            B	COUNT_OFF
+ 10c:	eafffff9 	b	f8 <COUNT_OFF>
+
+00000110 <DIVIDE>:
+            
+DIVIDE: 	MOV R1, #0		
+ 110:	e3a01000 	mov	r1, #0
+
+00000114 <CONT>:
+CONT: 		CMP R0, #10			
+ 114:	e350000a 	cmp	r0, #10
+            MOVLT PC, LR 
+ 118:	b1a0f00e 	movlt	pc, lr
+            SUB R0, #10
+ 11c:	e240000a 	sub	r0, r0, #10
+            ADD R1, #1
+ 120:	e2811001 	add	r1, r1, #1
+			B CONT	
+ 124:	eafffffa 	b	114 <CONT>
+
+00000128 <SEG7_CODE>:
+            
+SEG7_CODE:  MOV     R1, #BIT_CODES  
+ 128:	e3a01f4e 	mov	r1, #312	; 0x138
+            ADD     R1, R0         // index into the BIT_CODES "array"
+ 12c:	e0811000 	add	r1, r1, r0
+            LDRB    R0, [R1]       // load the bit pattern (to be returned)
+ 130:	e5d10000 	ldrb	r0, [r1]
+            MOV     PC, LR     
+ 134:	e1a0f00e 	mov	pc, lr
+
+00000138 <BIT_CODES>:
+ 138:	4f5b063f 	.word	0x4f5b063f
+ 13c:	077d6d66 	.word	0x077d6d66
+ 140:	0000677f 	.word	0x0000677f

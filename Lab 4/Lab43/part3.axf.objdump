@@ -1,0 +1,139 @@
+
+D:/ece243/part3.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+       .text                   // executable code follows
+          .global _start                  
+
+_start:   MOV     R3, #TEST_NUM   // load the data word ...
+   0:	e3a030bc 	mov	r3, #188	; 0xbc
+          MOV     R0, #0
+   4:	e3a00000 	mov	r0, #0
+          MOV 	  R5, #0
+   8:	e3a05000 	mov	r5, #0
+          MOV 	  R6, #0
+   c:	e3a06000 	mov	r6, #0
+          MOV 	  R7, #0
+  10:	e3a07000 	mov	r7, #0
+          BL      SUB0
+  14:	eb000000 	bl	1c <SUB0>
+
+00000018 <END>:
+
+END:      B       END  
+  18:	eafffffe 	b	18 <END>
+
+0000001c <SUB0>:
+
+SUB0:     PUSH    {LR}      
+  1c:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+
+00000020 <SUB1>:
+
+SUB1:     LDR     R4, [R3], #4    // into R1
+  20:	e4934004 	ldr	r4, [r3], #4
+
+		  CMP 	  R4, #0
+  24:	e3540000 	cmp	r4, #0
+          POPEQ   {LR}
+  28:	049de004 	popeq	{lr}		; (ldreq lr, [sp], #4)
+          MOVEQ   PC, LR
+  2c:	01a0f00e 	moveq	pc, lr
+          
+          MOV 	  R1, R4
+  30:	e1a01004 	mov	r1, r4
+          BL	  ONES
+  34:	eb00000d 	bl	70 <ONES>
+          CMP     R5, R0
+  38:	e1550000 	cmp	r5, r0
+          MOVLE   R5, R0
+  3c:	d1a05000 	movle	r5, r0
+          MOV     R0, #0
+  40:	e3a00000 	mov	r0, #0
+          
+          MOV 	  R1, R4
+  44:	e1a01004 	mov	r1, r4
+          BL      ZEROS
+  48:	eb00000e 	bl	88 <ZEROS>
+          CMP     R6, R0
+  4c:	e1560000 	cmp	r6, r0
+          MOVLE   R6, R0
+  50:	d1a06000 	movle	r6, r0
+          MOV     R0, #0
+  54:	e3a00000 	mov	r0, #0
+          
+          MOV 	  R1, R4
+  58:	e1a01004 	mov	r1, r4
+          BL      ALTERNATE
+  5c:	eb000010 	bl	a4 <ALTERNATE>
+          CMP     R7, R0
+  60:	e1570000 	cmp	r7, r0
+          MOVLE   R7, R0
+  64:	d1a07000 	movle	r7, r0
+          MOV     R0, #0
+  68:	e3a00000 	mov	r0, #0
+          
+          B 	  SUB1
+  6c:	eaffffeb 	b	20 <SUB1>
+
+00000070 <ONES>:
+          
+ONES:     CMP     R1, #0          // loop until the data contains no more 1's
+  70:	e3510000 	cmp	r1, #0
+          MOVEQ	  PC, LR
+  74:	01a0f00e 	moveq	pc, lr
+          LSR     R2, R1, #1      // perform SHIFT, followed by AND
+  78:	e1a020a1 	lsr	r2, r1, #1
+          AND     R1, R1, R2      
+  7c:	e0011002 	and	r1, r1, r2
+          ADD     R0, #1          // count the string length so far
+  80:	e2800001 	add	r0, r0, #1
+          B       ONES 
+  84:	eafffff9 	b	70 <ONES>
+
+00000088 <ZEROS>:
+          
+ZEROS:    CMP     R1, #4294967295        // loop until the data contains no more 0
+  88:	e3710001 	cmn	r1, #1
+          MOVEQ	  PC, LR
+  8c:	01a0f00e 	moveq	pc, lr
+          LSR     R2, R1, #1      // perform SHIFT, followed by OR
+  90:	e1a020a1 	lsr	r2, r1, #1
+          ADD     R2, #2147483648
+  94:	e2822102 	add	r2, r2, #-2147483648	; 0x80000000
+          ORR     R1, R1, R2      
+  98:	e1811002 	orr	r1, r1, r2
+          ADD     R0, #1          // count the string length so far
+  9c:	e2800001 	add	r0, r0, #1
+          B       ZEROS 
+  a0:	eafffff8 	b	88 <ZEROS>
+
+000000a4 <ALTERNATE>:
+
+ALTERNATE:PUSH    {LR}
+  a4:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+		  LSR     R2, R1, #1
+  a8:	e1a020a1 	lsr	r2, r1, #1
+	      EOR     R1, R1, R2
+  ac:	e0211002 	eor	r1, r1, r2
+          BL      ONES
+  b0:	ebffffee 	bl	70 <ONES>
+          POP     {LR}
+  b4:	e49de004 	pop	{lr}		; (ldr lr, [sp], #4)
+          MOV 	  PC, LR
+  b8:	e1a0f00e 	mov	pc, lr
+
+000000bc <TEST_NUM>:
+  bc:	55555555 	.word	0x55555555
+  c0:	34645634 	.word	0x34645634
+  c4:	00000000 	.word	0x00000000
+  c8:	dddddddd 	.word	0xdddddddd
+  cc:	aaaaaaaa 	.word	0xaaaaaaaa
+  d0:	88888888 	.word	0x88888888
+  d4:	66666666 	.word	0x66666666
+  d8:	33333333 	.word	0x33333333
+  dc:	11111111 	.word	0x11111111
+  e0:	00000000 	.word	0x00000000

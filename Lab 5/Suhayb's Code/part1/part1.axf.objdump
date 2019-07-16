@@ -1,0 +1,76 @@
+
+W:/ECE243/Lab5/part1/part1.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <__cs3_interrupt_vector>:
+   0:	e59f40cc 	ldr	r4, [pc, #204]	; d4 <DISPLAY_CODE+0xc>
+   4:	eb00001a 	bl	74 <zero>
+
+00000008 <poll>:
+   8:	e59f10c8 	ldr	r1, [pc, #200]	; d8 <DISPLAY_CODE+0x10>
+   c:	e5911000 	ldr	r1, [r1]
+  10:	e211100f 	ands	r1, r1, #15
+  14:	0afffffb 	beq	8 <poll>
+  18:	e52d1004 	push	{r1}		; (str r1, [sp, #-4]!)
+  1c:	eb00000f 	bl	60 <waitForRelease>
+  20:	e49d1004 	pop	{r1}		; (ldr r1, [sp], #4)
+  24:	e5942000 	ldr	r2, [r4]
+  28:	e3520000 	cmp	r2, #0
+  2c:	03a000c8 	moveq	r0, #200	; 0xc8
+  30:	05d03000 	ldrbeq	r3, [r0]
+  34:	05843000 	streq	r3, [r4]
+  38:	0afffff2 	beq	8 <poll>
+  3c:	e2112001 	ands	r2, r1, #1
+  40:	1b00000b 	blne	74 <zero>
+  44:	e2112002 	ands	r2, r1, #2
+  48:	1b00000d 	blne	84 <increment>
+  4c:	e2112004 	ands	r2, r1, #4
+  50:	1b000012 	blne	a0 <decrement>
+  54:	e2112008 	ands	r2, r1, #8
+  58:	1b000017 	blne	bc <blank>
+  5c:	eaffffe9 	b	8 <poll>
+
+00000060 <waitForRelease>:
+  60:	e59f1070 	ldr	r1, [pc, #112]	; d8 <DISPLAY_CODE+0x10>
+  64:	e5911000 	ldr	r1, [r1]
+  68:	e211100f 	ands	r1, r1, #15
+  6c:	1afffffb 	bne	60 <waitForRelease>
+  70:	012fff1e 	bxeq	lr
+
+00000074 <zero>:
+  74:	e3a000c8 	mov	r0, #200	; 0xc8
+  78:	e5d03000 	ldrb	r3, [r0]
+  7c:	e5843000 	str	r3, [r4]
+  80:	e12fff1e 	bx	lr
+
+00000084 <increment>:
+  84:	e5d03000 	ldrb	r3, [r0]
+  88:	e3530067 	cmp	r3, #103	; 0x67
+  8c:	03a000c8 	moveq	r0, #200	; 0xc8
+  90:	12800001 	addne	r0, r0, #1
+  94:	e5d03000 	ldrb	r3, [r0]
+  98:	e5843000 	str	r3, [r4]
+  9c:	e12fff1e 	bx	lr
+
+000000a0 <decrement>:
+  a0:	e5d03000 	ldrb	r3, [r0]
+  a4:	e353003f 	cmp	r3, #63	; 0x3f
+  a8:	03a000c8 	moveq	r0, #200	; 0xc8
+  ac:	12400001 	subne	r0, r0, #1
+  b0:	e5d03000 	ldrb	r3, [r0]
+  b4:	e5843000 	str	r3, [r4]
+  b8:	e12fff1e 	bx	lr
+
+000000bc <blank>:
+  bc:	e3a03000 	mov	r3, #0
+  c0:	e5843000 	str	r3, [r4]
+  c4:	e12fff1e 	bx	lr
+
+000000c8 <DISPLAY_CODE>:
+  c8:	4f5b063f 	.word	0x4f5b063f
+  cc:	077d6d66 	.word	0x077d6d66
+  d0:	0000677f 	.word	0x0000677f
+  d4:	ff200020 	.word	0xff200020
+  d8:	ff200050 	.word	0xff200050
